@@ -114,7 +114,7 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="#">
+                    <a href="client_approval.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
                             <h3>Approval</h3>

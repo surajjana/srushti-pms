@@ -144,7 +144,7 @@
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_client, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
-                                            echo '<option value="'.$row["id"].'">'.ucfirst($row["name"]).'</option>';
+                                            echo '<option value="'.ucfirst($row["name"]).'">'.ucfirst($row["name"]).'</option>';
                                         }
                                     }
                                     mysql_close();
@@ -172,7 +172,7 @@
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_city, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
-                                            echo '<option value="'.$row["id"].'">'.ucfirst($row["name"]).'</option>';
+                                            echo '<option value="'.ucfirst($row["name"]).'">'.ucfirst($row["name"]).'</option>';
                                         }
                                     }
                                     mysql_close();
@@ -188,7 +188,7 @@
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_state, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
-                                            echo '<option value="'.$row["id"].'">'.ucfirst($row["name"]).'</option>';
+                                            echo '<option value="'.ucfirst($row["name"]).'">'.ucfirst($row["name"]).'</option>';
                                         }
                                     }
                                     mysql_close();
