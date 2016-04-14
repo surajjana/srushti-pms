@@ -16,6 +16,23 @@
         // no redirect
         header( "Location: $url" );
     }
+
+    $conn = mysql_connect(HOST, USER, PASSWORD);
+    if(! $conn )
+    {
+      die('Could not connect: ' . mysql_error());
+    }
+
+    mysql_select_db(DB);
+
+    $sql = "SELECT client_id,name,added_by FROM client_log WHERE approval_status=0";
+
+    $retval = mysql_query( $sql, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
 ?>
 
 <!DOCTYPE html>
@@ -108,37 +125,18 @@
                 <table class="table table-hover">
                     <thead>
                       <tr>
-                        <th>Client Group</th>
+                        <th>Client ID</th>
                         <th>Client Name</th>
+                        <th>Added By</th>
                         <th>Approval</th>                        
                       </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Test Client</td>
-                            <td>Suraj Kumar Jana</td>
-                            <td><a href="approve_client.php?cid=001">Approve</a></td>
-                        </tr>
-                        <tr>
-                            <td>Test Client</td>
-                            <td>Suraj Kumar Jana</td>
-                            <td><a href="approve_client.php?cid=001">Approve</a></td>
-                        </tr>
-                        <tr>
-                            <td>Test Client</td>
-                            <td>Suraj Kumar Jana</td>
-                            <td><a href="approve_client.php?cid=001">Approve</a></td>
-                        </tr>
-                        <tr>
-                            <td>Test Client</td>
-                            <td>Suraj Kumar Jana</td>
-                            <td><a href="approve_client.php?cid=001">Approve</a></td>
-                        </tr>
-                        <tr>
-                            <td>Test Client</td>
-                            <td>Suraj Kumar Jana</td>
-                            <td><a href="approve_client.php?cid=001">Approve</a></td>
-                        </tr>
+                        <?php  
+                            while ($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
+                                echo '<tr><td>'.$row["client_id"].'</td><td>'.$row["name"].'</td><td>'.ucfirst($row["added_by"]).'</td><td><a href="approve_client.php?cid='.$row["client_id"].'">Approve</a></td></tr>';
+                            }
+                        ?>
                     </tbody>
                 </table>
             </div>
