@@ -1,3 +1,23 @@
+<?php  
+    require_once("conf/constants.php");
+    session_start();
+    if(strcmp($_SESSION["pms_user"],"NA") == 0){
+        ob_start(); // ensures anything dumped out will be caught
+
+        // do stuff here
+        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+
+        // clear out the output buffer
+        while (ob_get_status()) 
+        {
+            ob_end_clean();
+        }
+
+        // no redirect
+        header( "Location: $url" );
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,20 +71,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html" style="padding:5px;"><img src="img/shrushti_logo.png" alt=""/></a>
+                <a class="navbar-brand" href="index.html" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="home.html">Home</a>
+                        <a class="page-scroll" href="home.php">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">About</a>
+                        <a class="page-scroll" href="#"><?php echo $_SESSION["pms_user"]; ?></a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">Profile</a>
+                        <a class="page-scroll" href="logout.php">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -86,7 +106,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="#">
+                    <a href="add_state_grp.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-plus wow bounceIn text-primary"></i>
                             <h3>Add</h3>

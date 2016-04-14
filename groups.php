@@ -1,3 +1,23 @@
+<?php  
+    require_once("conf/constants.php");
+    session_start();
+    if(strcmp($_SESSION["pms_user"],"NA") == 0){
+        ob_start(); // ensures anything dumped out will be caught
+
+        // do stuff here
+        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+
+        // clear out the output buffer
+        while (ob_get_status()) 
+        {
+            ob_end_clean();
+        }
+
+        // no redirect
+        header( "Location: $url" );
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +29,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Srushti | Project Management System</title>
+    <title>Srushti | Project Manaagement System</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -51,17 +71,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html" style="padding:5px;"><img src="img/shrushti_logo.png" alt=""/></a>
+                <a class="navbar-brand" href="index.html" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#">About</a>
+                        <a class="page-scroll" href="home.php">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">Contact</a>
+                        <a class="page-scroll" href="#"><?php echo $_SESSION["pms_user"]; ?></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="logout.php">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -70,41 +93,65 @@
         <!-- /.container-fluid -->
     </nav>
 
+
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Project Management System(PMS)</h2>
+                    <h2 class="section-heading">Groups</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-                <form name="sentMessage" id="contactForm" novalidate>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>User ID:</label>
-                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your name.">
-                            <p class="help-block"></p>
+                <div class="col-lg-4 col-md-6 text-center touch-anchor">
+                    <a href="state_groups.php">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-university wow bounceIn text-primary"></i>
+                            <h3>State</h3>
                         </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Password:</label>
-                            <input type="password" class="form-control" id="phone" required data-validation-required-message="Please enter your phone number.">
-                        </div>
-                    </div>
-                    
-                </form>
-                <a href="home.html"><button type="" class="btn btn-primary">Log In</button></a>
+                    </a>
                 </div>
-                <div class="col-md-4"></div>
+                <div class="col-lg-4 col-md-6 text-center touch-anchor">
+                    <a href="groups_man.html">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-building-o wow bounceIn text-primary"></i>
+                            <h3>City</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center touch-anchor">
+                    <a href="groups_man.html">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-opencart wow bounceIn text-primary"></i>
+                            <h3>Vendor Group</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-2"></div>
+                <div class="col-lg-4 col-md-6 text-center touch-anchor">
+                    <a href="groups_man.html">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-user wow bounceIn text-primary"></i>
+                            <h3>Client Group</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center touch-anchor">
+                    <a href="groups_man.html">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary"></i>
+                            <h3>Activity Group</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-2"></div>
             </div>
         </div>
     </section>
+
+    
 
     <section id="footer">
         <div class="container">
@@ -133,5 +180,3 @@
 </body>
 
 </html>
-
-0809845684754

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Srushti | Project Manaagement System</title>
+    <title>Srushti | Project Management System</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -58,13 +58,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="home.html">Home</a>
-                    </li>
-                    <li>
                         <a class="page-scroll" href="#">About</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">Profile</a>
+                        <a class="page-scroll" href="#">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -73,47 +70,41 @@
         <!-- /.container-fluid -->
     </nav>
 
-
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Client</h2>
+                    <h2 class="section-heading">Project Management System(PMS)</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="client_log.html">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-user-plus wow bounceIn text-primary"></i>
-                            <h3>Add Log</h3>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                <form name="sentMessage" id="contactForm" action="auth.php" method="post" novalidate>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>User ID:</label>
+                            <input type="text" class="form-control" name="uname" id="uname" required data-validation-required-message="Please enter your name.">
+                            <p class="help-block"></p>
                         </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="#">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
+                    </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Password:</label>
+                            <input type="password" class="form-control" name="pwd" id="pwd" required data-validation-required-message="Please enter your phone number.">
                         </div>
-                    </a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                </form>
+                
                 </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="#">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-chain wow bounceIn text-primary"></i>
-                            <h3>Master</h3>
-                        </div>
-                    </a>
-                </div>
+                <div class="col-md-4"></div>
             </div>
         </div>
     </section>
-
-    
 
     <section id="footer">
         <div class="container">
@@ -142,3 +133,5 @@
 </body>
 
 </html>
+
+0809845684754

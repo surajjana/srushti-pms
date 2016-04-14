@@ -64,11 +64,12 @@ aside {
 }
 
 .navbar-default {
-  /*background-color: white;*/
-  background-color: rgba(0,0,0,0.7);
-  background: rgba(0,0,0,0.7);
+  background-color: white;
+  box-shadow: 0 0 7px;
+  /*background-color: rgba(255,255,255,1.0);
+  background: rgba(255,255,255,1.0);
   border-color: rgba(0,0,0,0.7);
-  border-color: rgba(34, 34, 34, 0.05);
+  border-color: rgba(34, 34, 34, 0.05);*/
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
   -webkit-transition: all 0.35s;
   -moz-transition: all 0.35s;
@@ -89,7 +90,7 @@ aside {
   text-transform: uppercase;
   font-weight: 700;
   font-size: 13px;
-  color: #ffffff;
+  color: #000000;
 }
 .navbar-default .nav > li > a:hover,
 .navbar-default .nav > li > a:focus:hover {
