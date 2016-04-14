@@ -1,3 +1,52 @@
+<?php  
+    require_once("conf/constants.php");
+    session_start();
+    if(strcmp($_SESSION["pms_user"],"NA") == 0){
+        ob_start(); // ensures anything dumped out will be caught
+
+        // do stuff here
+        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+
+        // clear out the output buffer
+        while (ob_get_status()) 
+        {
+            ob_end_clean();
+        }
+
+        // no redirect
+        header( "Location: $url" );
+    }
+
+    $conn = mysql_connect(HOST, USER, PASSWORD);
+    if(! $conn )
+    {
+      die('Could not connect: ' . mysql_error());
+    }
+    $sql_state = "SELECT id,name FROM state_grp";
+    $sql_city = "SELECT id,name FROM city_grp";
+    $sql_client = "SELECT id,name FROM client_grp";
+
+    mysql_select_db(DB);
+    $retval_city = mysql_query( $sql_city, $conn );
+    $retval_state = mysql_query( $sql_state, $conn );
+    $retval_client = mysql_query( $sql_client, $conn );
+
+    if(! $retval_city )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    if(! $retval_state )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    if(! $retval_client )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,17 +100,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
+                <a class="navbar-brand" href="index.php" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#">About</a>
+                        <a class="page-scroll" href="home.php">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">Contact</a>
+                        <a class="page-scroll" href="#"><?php echo $_SESSION["pms_user"]; ?></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="logout.php">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -82,91 +134,103 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                <form name="sentMessage" id="contactForm" novalidate>
+                <form action="insert_client.php" method="post">
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Client Group:</label>
+                            <label>Client Group <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
                             <p class="help-block"></p> -->
-                            <select class="form-control">
-                                <option value="one">Popularity</option>
-                                <option value="two">Two</option>
-                                <option value="three">Three</option>
+                            <select name="client_grp" class="form-control">
+                                <?php  
+                                    while ($row = mysql_fetch_array($retval_client, MYSQL_ASSOC)) {
+                                        if(strlen($row["name"]) > 0){
+                                            echo '<option value="'.$row["id"].'">'.ucfirst($row["name"]).'</option>';
+                                        }
+                                    }
+                                    mysql_close();
+                                ?>
                             </select>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Name:</label>
-                            <input type="text" class="form-control" id="name" required data-validation-required-message="Please enter your phone number.">
+                            <label>Name <span style="color:red;">*</span> :</label>
+                            <input type="text" class="form-control" name="name" id="name" required data-validation-required-message="Please enter the name.">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Address:</label>
-                            <input type="text" class="form-control" id="address" required data-validation-required-message="Please enter your phone number.">
+                            <label>Address <span style="color:red;">*</span> :</label>
+                            <input type="text" class="form-control" name="address" id="address" required data-validation-required-message="Please enter the address.">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>City:</label>
+                            <label>City <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="city" required data-validation-required-message="Please enter your phone number."> -->
-                            <select class="form-control">
-                                <option value="one">Bangalore</option>
-                                <option value="two">Delhi</option>
-                                <option value="three">Chennai</option>
-                                <option value="three">Mumbai</option>
-                                <option value="three">Kolkata</option>
+                            <select name="city" class="form-control">
+                                <?php  
+                                    while ($row = mysql_fetch_array($retval_city, MYSQL_ASSOC)) {
+                                        if(strlen($row["name"]) > 0){
+                                            echo '<option value="'.$row["id"].'">'.ucfirst($row["name"]).'</option>';
+                                        }
+                                    }
+                                    mysql_close();
+                                ?>
                             </select>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>State:</label>
+                            <label>State <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="state" required data-validation-required-message="Please enter your phone number."> -->
-                            <select class="form-control">
-                                <option value="one">Karnataka</option>
-                                <option value="two">Maharastra</option>
-                                <option value="three">Tamil Nadu</option>
-                                <option value="three">West Begal</option>
+                            <select name="state" class="form-control">
+                                <?php  
+                                    while ($row = mysql_fetch_array($retval_state, MYSQL_ASSOC)) {
+                                        if(strlen($row["name"]) > 0){
+                                            echo '<option value="'.$row["id"].'">'.ucfirst($row["name"]).'</option>';
+                                        }
+                                    }
+                                    mysql_close();
+                                ?>
                             </select>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Office Phone:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <input type="text" class="form-control" name="office_phn" id="" >
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Mobile No:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <label>Mobile No <span style="color:red;">*</span> :</label>
+                            <input type="text" class="form-control" name="mobile" id="" required data-validation-required-message="Please enter the mobile number.">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Fax No:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <input type="text" class="form-control" name="fax" id="">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Email ID:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <label>Email ID <span style="color:red;">*</span> :</label>
+                            <input type="text" class="form-control" name="email" id="" required data-validation-required-message="Please enter email id.">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Contact Person:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
+                            <label>Contact Person <span style="color:red;">*</span> :</label>
+                            <input type="text" class="form-control" name="contact_person" id="" required data-validation-required-message="Please enter contact person name.">
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Contact No:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <label>Contact No <span style="color:red;">*</span> :</label>
+                            <input type="text" class="form-control" name="contact_no" id="" required data-validation-required-message="Please enter your contact person phone number.">
                         </div>
                     </div>
                 </div>
@@ -175,66 +239,66 @@
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Website:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <input type="text" class="form-control" name="website" id="" >
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>PAN No:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <label>PAN No <span style="color:red;">*</span> :</label>
+                            <input type="text" class="form-control" name="pan" id="" required data-validation-required-message="Please enter your PAN number.">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>TIN No:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <label>TIN No <span style="color:red;">*</span> :</label>
+                            <input type="text" class="form-control" name="tin" id="" required data-validation-required-message="Please enter your TIN number.">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>CST No:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <input type="text" class="form-control" name="cst" id="" >
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>ECC No:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <input type="text" class="form-control" name="ecc" id="" >
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Service Tax No:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <input type="text" class="form-control" name="service_tax_no" id="" >
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Bank Name:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <input type="text" class="form-control" name="bank_name" id="" >
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Account No:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <input type="text" class="form-control" name="account_no" id="" >
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Bank Branch:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <input type="text" class="form-control" name="bank_branch" id="" >
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>IFSC Code:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your phone number.">
+                            <input type="text" class="form-control" name="ifsc" id="" >
                         </div>
                     </div>
-                    
+                    <button type="submit" id="click_me" class="btn btn-primary">Submit</button>
                 </form>
-                <button type="button" id="click_me" class="btn btn-primary">Submit</button>
+                
                 </div>
             </div>
         </div>
@@ -263,7 +327,7 @@
     <script src="js/jquery.js"></script>
 
     <script type="text/javascript">
-        var res = '{"data":[{"name":"","address":"","city":"","state":""}]}';
+        /*var res = '{"data":[{"name":"","address":"","city":"","state":""}]}';
 
     $(document).ready(function(){
         $("#name").bind('input propertychange', function(){
@@ -303,7 +367,7 @@
               '</form>');
             $('body').append(form);
             form.submit();
-        });
+        });*/
         /*$("#click_me").click(function(event){             
             $.post( 
               "conf/change_data.php",

@@ -1,3 +1,23 @@
+<?php  
+    require_once("conf/constants.php");
+    session_start();
+    if(strcmp($_SESSION["pms_user"],"NA") == 0){
+        ob_start(); // ensures anything dumped out will be caught
+
+        // do stuff here
+        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+
+        // clear out the output buffer
+        while (ob_get_status()) 
+        {
+            ob_end_clean();
+        }
+
+        // no redirect
+        header( "Location: $url" );
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +29,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Srushti | Project Management System</title>
+    <title>Srushti | Project Manaagement System</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -58,10 +78,13 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a class="page-scroll" href="#">About</a>
+                        <a class="page-scroll" href="home.php">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">Contact</a>
+                        <a class="page-scroll" href="#"><?php echo $_SESSION["pms_user"]; ?></a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="logout.php">Logout</a>
                     </li>
                 </ul>
             </div>
@@ -70,43 +93,47 @@
         <!-- /.container-fluid -->
     </nav>
 
+
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Project Management System(PMS)</h2>
+                    <h2 class="section-heading">Vendor</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-                <form name="sentMessage" id="contactForm" action="auth.php" method="post" novalidate>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>User ID:</label>
-                            <input type="text" class="form-control" name="uname" id="uname" required data-validation-required-message="Please enter your name.">
-                            <p class="help-block"></p>
+                <div class="col-lg-4 col-md-6 text-center touch-anchor">
+                    <a href="#">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-user-plus wow bounceIn text-primary"></i>
+                            <h3>Add Log</h3>
                         </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Password:</label>
-                            <input type="password" class="form-control" name="pwd" id="pwd" required data-validation-required-message="Please enter your phone number.">
-                        </div>
-                    </div>
-                    <p style="color:red;">Invalid credentials</p>
-                    <button type="submit" class="btn btn-primary">Log In</button>
-
-                </form>
-                
+                    </a>
                 </div>
-                <div class="col-md-4"></div>
+                <div class="col-lg-4 col-md-6 text-center touch-anchor">
+                    <a href="#">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
+                            <h3>Approval</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6 text-center touch-anchor">
+                    <a href="#">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-chain wow bounceIn text-primary"></i>
+                            <h3>Master</h3>
+                        </div>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
+
+    
 
     <section id="footer">
         <div class="container">
@@ -135,5 +162,3 @@
 </body>
 
 </html>
-
-0809845684754

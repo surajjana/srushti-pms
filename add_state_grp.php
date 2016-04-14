@@ -71,7 +71,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
+                <a class="navbar-brand" href="index.php" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -107,13 +107,14 @@
             <div class="row">
                 <div class="col-3 col-md-3"></div>
                 <div class="col-lg-6 col-md-6">
-                    <form>
+                    <form action="add_state_grp_db.php" method="post">
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Enter Client Group Name:</label>
-                            <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
+                            <label>Enter State Group Name:</label>
+                            <input type="text" class="form-control" id="" name="name" required data-validation-required-message="Please enter value.">
                             <br />
                             <button class="btn btn-primary" type="submit">Add</button>
+                            <a href="search_state_grp.php">Search</a>
                         </div>
                     </div>
                     </form>

@@ -71,7 +71,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
+                <a class="navbar-brand" href="index.php" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -117,7 +117,7 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="client.html">
+                    <a href="client.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-user wow bounceIn text-primary"></i>
                             <h3>Client</h3>
@@ -125,7 +125,7 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor.html">
+                    <a href="vendor.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-opencart wow bounceIn text-primary"></i>
                             <h3>Vendor</h3>
@@ -133,7 +133,7 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="activity.html">
+                    <a href="activity.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary"></i>
                             <h3>Activity</h3>
@@ -141,7 +141,7 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="transactions.html">
+                    <a href="transactions.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-money wow bounceIn text-primary"></i>
                             <h3>Transactions</h3>

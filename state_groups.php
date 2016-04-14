@@ -71,7 +71,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
+                <a class="navbar-brand" href="index.php" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -98,7 +98,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Groups</h2>
+                    <h2 class="section-heading">State Groups</h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -114,7 +114,7 @@
                     </a>
                 </div>
                 <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="#">
+                    <a href="search_state_grp.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-search wow bounceIn text-primary"></i>
                             <h3>Search</h3>

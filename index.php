@@ -1,3 +1,23 @@
+<?php  
+    require_once("conf/constants.php");
+    session_start();
+    if(strcmp($_SESSION["pms_user"],"NA") != 0){
+        ob_start(); // ensures anything dumped out will be caught
+
+        // do stuff here
+        $url = DOMAIN.'home.php'; // this can be set based on whatever
+
+        // clear out the output buffer
+        while (ob_get_status()) 
+        {
+            ob_end_clean();
+        }
+
+        // no redirect
+        header( "Location: $url" );
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,7 +71,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
+                <a class="navbar-brand" href="#" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->

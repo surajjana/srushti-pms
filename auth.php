@@ -1,17 +1,14 @@
 <?php
 require_once("conf/constants.php");
 
-$dbhost = 'localhost';
-$dbuser = 'root';
-$dbpass = 'hack123';
-$conn = mysql_connect($dbhost, $dbuser, $dbpass);
+$conn = mysql_connect(HOST, USER, PASSWORD);
 if(! $conn )
 {
   die('Could not connect: ' . mysql_error());
 }
 $sql = "SELECT pwd FROM user WHERE uname='".$_POST['uname']."'";
 
-mysql_select_db('shrusti_pms');
+mysql_select_db(DB);
 $retval = mysql_query( $sql, $conn );
 
 if(! $retval )
