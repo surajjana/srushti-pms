@@ -45,6 +45,7 @@
     {
       die('Could not get data: ' . mysql_error());
     }
+    mysql_close();
 ?>
 
 <!DOCTYPE html>

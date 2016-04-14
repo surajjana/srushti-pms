@@ -1,6 +1,8 @@
 <?php  
 require_once("conf/constants.php");
 
+session_start();
+
 $conn = mysql_connect(HOST, USER, PASSWORD);
 if(! $conn )
 {
@@ -9,7 +11,7 @@ if(! $conn )
 
 mysql_select_db(DB);
 
-$client_grp = $_POST["client"];
+$client_grp = $_POST["client_grp"];
 $name = $_POST["name"];
 $address = $_POST["address"];
 $city = $_POST["city"];
@@ -57,5 +59,21 @@ if($val<10){
 $client_id = $res;
 /*echo $client_id;*/
 
-$sql_insert = "insert into client_log values('".$client_id."','".$client_grp."','".$name."','".$address."')";
+$sql_insert = "insert into client_log values('".$client_id."','".$client_grp."','".$name."','".$address.
+			  "','".$city."','".$state."','".$office_phn."','".$mobile."','".$fax."','".$email."','".$contact_person.
+			  "','".$contact_no."','".$website."','".$pan."','".$tin."','".$cst."','".$ecc."','".$service_tax_no.
+			  "','".$bank_name."','".$account_no."','".$bank_branch."','".$ifsc."','".$_SESSION["pms_user"].
+			  "','".(string)time()."','','',0)";
+
+$retval = mysql_query( $sql_insert, $conn );
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}
+mysql_close();
+/*echo "Client Added!!";*/
+
+
+echo '<center><h2>Client Log Sheet Inserted!!</h2><br /><a href="client.php">Click Here</a></center>';
 ?>
