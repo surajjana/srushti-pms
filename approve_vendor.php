@@ -1,21 +1,43 @@
-<?php  
-    require_once("conf/constants.php");
-    session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0){
-        ob_start(); // ensures anything dumped out will be caught
+<?php 
+require_once("conf/constants.php");
+session_start();
 
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+$vendor_id = $_GET["cid"];
 
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
 
-        // no redirect
-        header( "Location: $url" );
-    }
+mysql_select_db(DB);
+
+$sql_rights = "SELECT rights FROM user WHERE uname='".$_SESSION["pms_user"]."'";
+
+$retval = mysql_query( $sql_rights, $conn );
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}
+
+$row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+if((int)$row["rights"] != 3){
+	echo "Not Autorized!!";
+}else{
+	$sql = "SELECT * FROM vendor_log WHERE vendor_id='".$vendor_id."'";
+
+	$retval = mysql_query( $sql, $conn );
+
+	if(! $retval )
+	{
+	  die('Could not get data: ' . mysql_error());
+	}
+
+	$row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+	mysql_close();
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +51,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Srushti | Project Manaagement System</title>
+    <title>Srushti | Project Management System</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -93,47 +115,65 @@
         <!-- /.container-fluid -->
     </nav>
 
-
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Vendor</h2>
+                    <h2 class="section-heading">Vendor Log Sheet</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_log.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-user-plus wow bounceIn text-primary"></i>
-                            <h3>Add Log</h3>
-                        </div>
-                    </a>
+                <div class="col-md-6">
+                	<label>Vendor ID : </label><?php echo $row["vendor_id"]; ?><br />
+                	<label>Vendor Group : </label><?php echo $row["vendor_grp"]; ?><br />
+                	<label>Name : </label><?php echo $row["name"]; ?><br />
+                	<label>Address : </label><?php echo $row["address"]; ?><br />
+                	<label>City : </label><?php echo $row["city"]; ?><br />
+                	<label>State : </label><?php echo $row["state"]; ?><br />
+                	<label>Office Phone : </label><?php echo $row["office_phn"]; ?><br />
+                	<label>Mobile : </label><?php echo $row["mobile"]; ?><br />
+                	<label>FAX : </label><?php echo $row["fax"]; ?><br />
+                	<label>Email ID : </label><?php echo $row["email"]; ?><br />
+                	<label>Contact Person : </label><?php echo $row["contact_person"]; ?><br />
                 </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_approval.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
-                        </div>
-                    </a>
+
+                <div class="col-md-6"> 
+                	<label>Contact No. : </label><?php echo $row["contact_no"]; ?><br />
+                	<label>Website : </label><?php echo $row["website"]; ?><br />                 
+                	<label>PAN No. : </label><?php echo $row["pan"]; ?><br />
+                	<label>TIN No. : </label><?php echo $row["tin"]; ?><br />
+                	<label>CST No. : </label><?php echo $row["cst"]; ?><br />
+                	<label>ECC No. : </label><?php echo $row["ecc"]; ?><br />
+                	<label>Service Tax No. : </label><?php echo $row["service_tax_no"]; ?><br />
+                	<label>Bank Name : </label><?php echo $row["bank_name"]; ?><br />
+                	<label>Account No. : </label><?php echo $row["account_no"]; ?><br />
+                	<label>Bank Brach : </label><?php echo $row["bank_branch"]; ?><br />
+                	<label>IFSC Code : </label><?php echo $row["ifsc"]; ?><br />
                 </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_master.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-chain wow bounceIn text-primary"></i>
-                            <h3>Master</h3>
-                        </div>
-                    </a>
+            </div>
+            <br />
+            <div class="row">
+	            <div class="col-md-6">
+	            	<center><?php echo '<a href="final_vendor_log_approve.php?cid='.$vendor_id.'"><h2>Approve</h2></a>'; ?></center>
+	            </div>
+	            <div class="col-md-6">
+	            	<center><?php echo '<a href="vendor_edit.php?cid='.$vendor_id.'"><h2>Edit</h2></a>'; ?></center>
+	            </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="stage"></div>
                 </div>
             </div>
         </div>
     </section>
-
-    
 
     <section id="footer">
         <div class="container">
@@ -159,6 +199,11 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
 
+    <!-- Ajax -->
+    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 </body>
 
 </html>
+
+<?php } ?>

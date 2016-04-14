@@ -11,7 +11,7 @@ if(! $conn )
 
 mysql_select_db(DB);
 
-$client_grp = $_POST["client_grp"];
+$vendor_grp = $_POST["vendor_grp"];
 $name = $_POST["name"];
 $address = $_POST["address"];
 $city = $_POST["city"];
@@ -34,7 +34,7 @@ $bank_branch = $_POST["bank_branch"];
 $ifsc = $_POST["ifsc"];
 
 
-$sql = "SELECT client_id FROM client_log ORDER BY client_id DESC LIMIT 1";
+$sql = "SELECT vendor_id FROM vendor_log ORDER BY vendor_id DESC LIMIT 1";
 
 $retval = mysql_query( $sql, $conn );
 
@@ -44,11 +44,11 @@ if(! $retval )
 }
 
 $row = mysql_fetch_array($retval, MYSQL_ASSOC);
-$client_code = $row["client_id"];
+$vendor_code = $row["client_id"];
 $arr = explode("CL22",$client_code);
 $val = (int)$arr[1];
 $val += 1;
-$res = 'CL22';
+$res = 'VL11';
 if($val<10){
 	$res .= '00'.(string)$val;
 }elseif($val>9 && $val<100){
@@ -56,10 +56,10 @@ if($val<10){
 }else{
 	$res .= (string)$val;
 }
-$client_id = $res;
+$vendor_id = $res;
 /*echo $client_id;*/
 
-$sql_insert = "insert into client_log values('".$client_id."','".$client_grp."','".$name."','".$address.
+$sql_insert = "insert into vendor_log values('".$vendor_id."','".$vendor_grp."','".$name."','".$address.
 			  "','".$city."','".$state."','".$office_phn."','".$mobile."','".$fax."','".$email."','".$contact_person.
 			  "','".$contact_no."','".$website."','".$pan."','".$tin."','".$cst."','".$ecc."','".$service_tax_no.
 			  "','".$bank_name."','".$account_no."','".$bank_branch."','".$ifsc."','".$_SESSION["pms_user"].
@@ -77,6 +77,6 @@ if(! $retval )
 /*echo "Client Added!!";*/
 
 
-echo '<center><h2>Client Log Sheet Inserted!!</h2><br /><a href="client.php">Click Here</a></center>';
+echo '<center><h2>Vendor Log Sheet Inserted!!</h2><br /><a href="vendor.php">Click Here</a></center>';
 }
 ?>

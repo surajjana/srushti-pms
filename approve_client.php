@@ -160,7 +160,7 @@ if((int)$row["rights"] != 3){
 	            	<center><?php echo '<a href="final_client_log_approve.php?cid='.$client_id.'"><h2>Approve</h2></a>'; ?></center>
 	            </div>
 	            <div class="col-md-6">
-	            	<center><a href="#"><h2>Edit</h2></a></center>
+	            	<center><?php echo '<a href="client_edit.php?cid='.$client_id.'"><h2>Edit</h2></a>'; ?></center>
 	            </div>
             </div>
         </div>

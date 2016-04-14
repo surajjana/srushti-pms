@@ -1,21 +1,66 @@
 <?php  
-    require_once("conf/constants.php");
-    session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0){
-        ob_start(); // ensures anything dumped out will be caught
+require_once("conf/constants.php");
 
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+session_start();
 
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
 
-        // no redirect
-        header( "Location: $url" );
-    }
+mysql_select_db(DB);
+
+$client_id = $_POST["client_id"];
+$client_grp = $_POST["client_grp"];
+$name = $_POST["name"];
+$address = $_POST["address"];
+$city = $_POST["city"];
+$state = $_POST["state"];
+$office_phn = $_POST["office_phn"];
+$mobile = $_POST["mobile"];
+$fax = $_POST["fax"];
+$email = $_POST["email"];
+$contact_person = $_POST["contact_person"];
+$contact_no = $_POST["contact_no"];
+$website = $_POST["website"];
+$pan = $_POST["pan"];
+$tin = $_POST["tin"];
+$cst = $_POST["cst"];
+$ecc = $_POST["ecc"];
+$service_tax_no = $_POST["service_tax_no"];
+$bank_name = $_POST["bank_name"];
+$account_no = $_POST["account_no"];
+$bank_branch = $_POST["bank_branch"];
+$ifsc = $_POST["ifsc"];
+
+
+$sql = "SELECT client_id FROM client_log ORDER BY client_id DESC LIMIT 1";
+
+$retval = mysql_query( $sql, $conn );
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}
+
+
+
+$sql_insert = "update client_log set client_grp='".$client_grp."',name='".$name."',address='".$address.
+			  "',city='".$city."',state='".$state."',office_phn='".$office_phn."',mobile='".$mobile."',fax='".$fax."',email='".$email."',contact_person='".$contact_person.
+			  "',contact_no='".$contact_no."',website='".$website."',pan='".$pan."',tin='".$tin."',cst='".$cst."',ecc='".$ecc."',service_tax_no='".$service_tax_no.
+			  "',bank_name='".$bank_name."',account_no='".$account_no."',bank_branch='".$bank_branch."',ifsc='".$ifsc."' where client_id='".$client_id."'";
+
+$retval = mysql_query( $sql_insert, $conn );
+
+mysql_close();
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}else{
+	/*echo '<center><h2>Client Log Sheet Updated!!</h2><br /><a href="client.php">Click Here</a></center>';
+}*/
 ?>
 
 <!DOCTYPE html>
@@ -98,36 +143,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Vendor</h2>
-                    <hr class="primary">
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_log.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-user-plus wow bounceIn text-primary"></i>
-                            <h3>Add Log</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_approval.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_master.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-chain wow bounceIn text-primary"></i>
-                            <h3>Master</h3>
-                        </div>
-                    </a>
+                    <h2 class="section-heading">Client Log Sheet Updated!!</h2>
                 </div>
             </div>
         </div>
@@ -162,3 +178,5 @@
 </body>
 
 </html>
+
+<?php } ?>

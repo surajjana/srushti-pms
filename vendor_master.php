@@ -1,20 +1,36 @@
-<?php  
-    require_once("conf/constants.php");
-    session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0){
-        ob_start(); // ensures anything dumped out will be caught
+<?php 
+require_once("conf/constants.php");
+session_start();
 
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
 
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
+mysql_select_db(DB);
 
-        // no redirect
-        header( "Location: $url" );
+$sql_rights = "SELECT rights FROM user WHERE uname='".$_SESSION["pms_user"]."'";
+
+$retval = mysql_query( $sql_rights, $conn );
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}
+
+$row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+if((int)$row["rights"] != 3){
+	echo "Not Autorized!!";
+}else{
+	$sql = "SELECT vendor_id,name FROM vendor_log WHERE approval_status=1";
+
+    $retval = mysql_query( $sql, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
     }
 ?>
 
@@ -98,37 +114,30 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Vendor</h2>
+                    <h2 class="section-heading">Vendor Master</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_log.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-user-plus wow bounceIn text-primary"></i>
-                            <h3>Add Log</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_approval.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_master.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-chain wow bounceIn text-primary"></i>
-                            <h3>Master</h3>
-                        </div>
-                    </a>
-                </div>
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Vendor ID</th>
+                        <th>Vendor Name</th>
+                        <th>Edit</th>
+                        <th>Delete</th>                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <?php  
+                            while ($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
+                                echo '<tr><td>'.$row["vendor_id"].'</td><td>'.$row["name"].'</td><td><a href="vendor_edit.php?cid='.$row["vendor_id"].'">Edit</a></td><td><a href="vendor_delete.php?cid='.$row["vendor_id"].'">Delete</a></td></tr>';
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -162,3 +171,5 @@
 </body>
 
 </html>
+
+<?php } ?>

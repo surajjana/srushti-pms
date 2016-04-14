@@ -1,21 +1,41 @@
 <?php  
-    require_once("conf/constants.php");
-    session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0){
-        ob_start(); // ensures anything dumped out will be caught
+require_once("conf/constants.php");
 
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+session_start();
 
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
 
-        // no redirect
-        header( "Location: $url" );
-    }
+mysql_select_db(DB);
+
+$activity_id = $_POST["activity_id"];
+$client_id = $_POST["client_id"];
+$fromDate = $_POST["fromDate"];
+$toDate = $_POST["toDate"];
+$activity_grp = $_POST["activity_grp"];
+$name = $_POST["activity_name"];
+$venue = $_POST["venue"];
+$remarks = $_POST["remarks"];
+
+
+
+
+$sql_insert = "update activity_log set client_id='".$client_id."',fromDate='".$fromDate."',toDate='".$toDate.
+              "',activity_grp='".$activity_grp."',name='".$name."',venue='".$venue."',remarks='".$remarks."' where activity_id='".$activity_id."'";
+
+$retval = mysql_query( $sql_insert, $conn );
+
+mysql_close();
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}else{
+	/*echo '<center><h2>Client Log Sheet Updated!!</h2><br /><a href="client.php">Click Here</a></center>';
+}*/
 ?>
 
 <!DOCTYPE html>
@@ -98,36 +118,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Vendor</h2>
-                    <hr class="primary">
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_log.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-user-plus wow bounceIn text-primary"></i>
-                            <h3>Add Log</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_approval.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_master.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-chain wow bounceIn text-primary"></i>
-                            <h3>Master</h3>
-                        </div>
-                    </a>
+                    <h2 class="section-heading">Activity Log Sheet Updated!!</h2>
                 </div>
             </div>
         </div>
@@ -162,3 +153,5 @@
 </body>
 
 </html>
+
+<?php } ?>

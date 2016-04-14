@@ -106,7 +106,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="#">
+                    <a href="activity_log.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-user-plus wow bounceIn text-primary"></i>
                             <h3>Add Log</h3>
@@ -114,7 +114,7 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="#">
+                    <a href="activity_approval.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
                             <h3>Approval</h3>
@@ -122,7 +122,7 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="#">
+                    <a href="activity_master.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-chain wow bounceIn text-primary"></i>
                             <h3>Master</h3>

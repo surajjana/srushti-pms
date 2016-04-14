@@ -1,21 +1,29 @@
 <?php  
-    require_once("conf/constants.php");
-    session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0){
-        ob_start(); // ensures anything dumped out will be caught
 
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+$client_id = $_GET["cid"];
 
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
+require_once("conf/constants.php");
+session_start();
 
-        // no redirect
-        header( "Location: $url" );
-    }
+$activity_id = $_GET["cid"];
+
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
+
+mysql_select_db(DB);
+
+$sql_rights = "update activity_log set approved_by='".$_SESSION["pms_user"]."',time_approved='".(string)time()."',approval_status=1 where activity_id='".$activity_id."'";
+
+$retval = mysql_query( $sql_rights, $conn );
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}else{
+
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +37,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Srushti | Project Manaagement System</title>
+    <title>Srushti | Project Management System</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -93,47 +101,24 @@
         <!-- /.container-fluid -->
     </nav>
 
-
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Vendor</h2>
-                    <hr class="primary">
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_log.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-user-plus wow bounceIn text-primary"></i>
-                            <h3>Add Log</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_approval.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor_master.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-chain wow bounceIn text-primary"></i>
-                            <h3>Master</h3>
-                        </div>
-                    </a>
+                    <h2 class="section-heading">Activity ID : <?php echo $activity_id; ?> Approved!!</h2>
                 </div>
             </div>
         </div>
     </section>
-
-    
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="stage"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="footer">
         <div class="container">
@@ -159,6 +144,11 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
 
+    <!-- Ajax -->
+    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 </body>
 
 </html>
+
+<?php } ?>
