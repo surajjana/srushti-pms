@@ -2,7 +2,7 @@
     error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
     require_once("conf/constants.php");
     session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0 || strlen($_SESSION["pms_user"]) == 0){
+    if(strcmp($_SESSION["pms_user"],"NA") == 0 || strlen($_SESSION["pms_user"]) == 0 ){
         ob_start(); // ensures anything dumped out will be caught
 
         // do stuff here
@@ -17,25 +17,8 @@
         // no redirect
         header( "Location: $url" );
     }
-    $conn = mysql_connect(HOST, USER, PASSWORD);
-    if(! $conn )
-    {
-      die('Could not connect: ' . mysql_error());
-    }
-
-    mysql_select_db(DB);
-
-    $sql_rights = "SELECT rights FROM user WHERE uname='".$_SESSION["pms_user"]."'";
-
-    $retval = mysql_query( $sql_rights, $conn );
-
-    if(! $retval )
-    {
-      die('Could not get data: ' . mysql_error());
-    }
-
-    $row = mysql_fetch_array($retval, MYSQL_ASSOC);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -90,29 +73,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.php" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
+                <a class="navbar-brand" href="#" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- <li>
-                        <a class="page-scroll" href="#">Home</a>
+                    <li>
+                        <a class="page-scroll" href="home.php">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">About</a>
-                    </li> -->
-                    <li>
-                        <a class="page-scroll" href="#">Welcome <?php echo $_SESSION["pms_user"]; ?></a>
+                        <a class="page-scroll" href="#"><?php echo $_SESSION["pms_user"]; ?></a>
                     </li>
-                    <li>
-                        <a class="page-scroll" href="change_pwd.php">Change Password</a>
-                    </li>
-                    <?php  
-                        if((int)$row["rights"] == 3){
-                            echo '<li><a class="page-scroll" href="add_user.php">Add User</a></li>';
-                        }
-                    ?>
                     <li>
                         <a class="page-scroll" href="logout.php">Logout</a>
                     </li>
@@ -122,7 +94,6 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-
 
     <section id="services">
         <div class="container">
@@ -135,61 +106,38 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="groups.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-group wow bounceIn text-primary"></i>
-                            <h3>Groups</h3>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                <form action="pwd.php" method="post">
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Old Password:</label>
+                            <input type="password" class="form-control" name="old_pwd" required data-validation-required-message="Please enter the value.">
+                            <p class="help-block"></p>
                         </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="client.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-user wow bounceIn text-primary"></i>
-                            <h3>Client</h3>
+                    </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>New Password:</label>
+                            <input type="password" class="form-control" name="new_pwd" required data-validation-required-message="Please enter the value.">
+                            <p class="help-block"></p>
                         </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-opencart wow bounceIn text-primary"></i>
-                            <h3>Vendor</h3>
+                    </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Confirm New Password:</label>
+                            <input type="password" class="form-control" name="new_pwd_cnfrm" required data-validation-required-message="Please enter the value.">
+                            <p class="help-block"></p>
                         </div>
-                    </a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+                
                 </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="activity.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary"></i>
-                            <h3>Activity</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="transactions.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-money wow bounceIn text-primary"></i>
-                            <h3>Transactions</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="#">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-line-chart wow bounceIn text-primary"></i>
-                            <h3>Reports</h3>
-                        </div>
-                    </a>
-                </div>
+                <div class="col-md-4"></div>
             </div>
         </div>
     </section>
-
-    
-
-    
 
     <section id="footer">
         <div class="container">
