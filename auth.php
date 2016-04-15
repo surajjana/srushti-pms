@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 require_once("conf/constants.php");
 
 $conn = mysql_connect(HOST, USER, PASSWORD);

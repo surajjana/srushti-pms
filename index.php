@@ -1,6 +1,10 @@
 <?php  
+    error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
     require_once("conf/constants.php");
     session_start();
+    /*if(isset($_SESSION["pms_user"])){
+
+    }*/
     if (strlen($_SESSION["pms_user"]) == 0 ) {
         ob_start(); // ensures anything dumped out will be caught
 

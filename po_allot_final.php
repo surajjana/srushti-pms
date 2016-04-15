@@ -1,8 +1,8 @@
 <?php 
-
+	error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 	require_once("conf/constants.php");
 	session_start();
-	if(strcmp($_SESSION["pms_user"],"NA") == 0){
+	if(strcmp($_SESSION["pms_user"],"NA") == 0 || strlen($_SESSION["pms_user"]) == 0 ){
 	    ob_start(); // ensures anything dumped out will be caught
 
 	    // do stuff here
