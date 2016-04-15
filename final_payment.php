@@ -1,33 +1,31 @@
-<?php  
-    require_once("conf/constants.php");
-    session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0){
-        ob_start(); // ensures anything dumped out will be caught
+<?php 
+require_once("conf/constants.php");
+session_start();
 
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
 
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
+mysql_select_db(DB);
 
-        // no redirect
-        header( "Location: $url" );
-    }
+$sql_rights = "SELECT rights FROM user WHERE uname='".$_SESSION["pms_user"]."'";
 
-    $po_id = $_GET["cid"];
+$retval = mysql_query( $sql_rights, $conn );
 
-    $conn = mysql_connect(HOST, USER, PASSWORD);
-    if(! $conn )
-    {
-      die('Could not connect: ' . mysql_error());
-    }
-    $sql = "SELECT * FROM po_log where po_id='".$po_id."'";
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}
 
-    mysql_select_db(DB);
-    
+$row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+if((int)$row["rights"] != 3){
+	echo "Not Autorized!!";
+}else{
+	$sql = "SELECT * FROM po_log WHERE approval_status=1";
+
     $retval = mysql_query( $sql, $conn );
 
     if(! $retval )
@@ -35,31 +33,6 @@
       die('Could not get data: ' . mysql_error());
     }
 
-    $row = mysql_fetch_array($retval, MYSQL_ASSOC);
-
-    $sql_activity = "select name,venue from activity_log where activity_id='".$row["activity_id"]."'";
-
-    $retval_activity = mysql_query( $sql_activity, $conn );
-
-    if(! $retval_activity )
-    {
-      die('Could not get data: ' . mysql_error());
-    }
-
-    $row_activity = mysql_fetch_array($retval_activity, MYSQL_ASSOC);
-
-    $sql_vendor = "select name from vendor_log where vendor_id='".$row["vendor_id"]."'";
-
-    $retval_vendor = mysql_query( $sql_vendor, $conn );
-
-    if(! $retval_vendor )
-    {
-      die('Could not get data: ' . mysql_error());
-    }
-
-    $row_vendor = mysql_fetch_array($retval_vendor, MYSQL_ASSOC);
-
-    mysql_close();
 ?>
 
 <!DOCTYPE html>
@@ -73,7 +46,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Srushti | Project Management System</title>
+    <title>Srushti | Project Manaagement System</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -93,10 +66,6 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
-
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -141,60 +110,67 @@
         <!-- /.container-fluid -->
     </nav>
 
+
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">PO Log Sheet</h2>
+                    <h2 class="section-heading">PO Master</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                <label>PO ID : </label><?php echo $po_id; ?><br />
-                <label>Activity ID : </label><?php echo $row["activity_id"]; ?><br />
-                <label>Activity : </label><?php echo $row_activity["name"]; ?><br />
-                <label>Vendor ID : </label><?php echo $row["vendor_id"]; ?><br />
-                <label>Vendor : </label><?php echo $row_vendor["name"]; ?><br />
-                <label>Vendor Group : </label><?php echo $row["vendor_grp"]; ?><br />
-                <label>Venue : </label><?php echo $row_activity["venue"]; ?><br />
-                <label>Remarks : </label><?php echo $row["po_remarks"]; ?><br />
-                <form action="update_po.php" method="get">
-                    <input type="hidden" name="po_id" value='<?php echo $po_id; ?>'>
-                    
-                    
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>PO Amount <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="po_amount" required data-validation-required-message="Please enter the value ." value='<?php echo $row["po_amount"]; ?>' >
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>PO Balance :</label>
-                            <input type="text" class="form-control" name="po_balance" value='<?php echo $row["po_balance"]; ?>' >
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                </div>
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>PO ID</th>
+                        <th>Activity ID</th>
+                        <th>Activity</th>
+                        <th>Vendor ID</th>
+                        <th>Vendor</th>
+                        <th>PO Amount</th>
+                        <th>PO Balance</th>
+                        <th>Pay</th>                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <?php  
+                            while ($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
 
-                <div class="col-md-3"></div>
+                                $sql_activity = "select name from activity_log where activity_id='".$row["activity_id"]."'";
+
+                                $retval_activity = mysql_query( $sql_activity, $conn );
+
+                                if(! $retval_activity )
+                                {
+                                  die('Could not get data: ' . mysql_error());
+                                }
+
+                                $row_activity = mysql_fetch_array($retval_activity, MYSQL_ASSOC);
+
+                                $sql_vendor = "select name from vendor_log where vendor_id='".$row["vendor_id"]."'";
+
+                                $retval_vendor = mysql_query( $sql_vendor, $conn );
+
+                                if(! $retval_vendor )
+                                {
+                                  die('Could not get data: ' . mysql_error());
+                                }
+
+                                $row_vendor = mysql_fetch_array($retval_vendor, MYSQL_ASSOC);
+
+                                echo '<tr><td>'.$row["po_id"].'</td><td>'.$row["activity_id"].'</td><td>'.$row_activity["name"].'</td><td>'.$row["vendor_id"].'</td><td>'.$row_vendor["name"].'</td><td>'.$row["po_amount"].'</td><td>'.$row["po_balance"].'</td><td><a href="final_pay.php?cid='.$row["po_id"].'">Pay</a></td></tr>';
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="stage"></div>
-                </div>
-            </div>
-        </div>
-    </section>
+
+    
 
     <section id="footer">
         <div class="container">
@@ -220,9 +196,8 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
 
-    <!-- Ajax -->
-    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-
 </body>
 
 </html>
+
+<?php } ?>

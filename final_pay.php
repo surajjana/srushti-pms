@@ -145,7 +145,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">PO Log Sheet</h2>
+                    <h2 class="section-heading">PO Payment Sheet</h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -162,23 +162,11 @@
                 <label>Vendor Group : </label><?php echo $row["vendor_grp"]; ?><br />
                 <label>Venue : </label><?php echo $row_activity["venue"]; ?><br />
                 <label>Remarks : </label><?php echo $row["po_remarks"]; ?><br />
-                <form action="update_po.php" method="get">
+                <label>PO Amount : </label><?php echo $row["po_amount"]; ?><br />
+                <label>PO Balance : </label><?php echo $row["po_balance"]; ?><br />
+                <form action="update_final_pay.php" method="get">
                     <input type="hidden" name="po_id" value='<?php echo $po_id; ?>'>
-                    
-                    
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>PO Amount <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="po_amount" required data-validation-required-message="Please enter the value ." value='<?php echo $row["po_amount"]; ?>' >
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>PO Balance :</label>
-                            <input type="text" class="form-control" name="po_balance" value='<?php echo $row["po_balance"]; ?>' >
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Final Payment</button>
                 </form>
                 </div>
 
