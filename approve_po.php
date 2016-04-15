@@ -1,21 +1,65 @@
-<?php  
-    require_once("conf/constants.php");
-    session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0){
-        ob_start(); // ensures anything dumped out will be caught
+<?php 
+require_once("conf/constants.php");
+session_start();
 
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+$po_id = $_GET["cid"];
 
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
 
-        // no redirect
-        header( "Location: $url" );
+mysql_select_db(DB);
+
+$sql_rights = "SELECT rights FROM user WHERE uname='".$_SESSION["pms_user"]."'";
+
+$retval = mysql_query( $sql_rights, $conn );
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}
+
+$row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+if((int)$row["rights"] != 3){
+	echo "Not Autorized!!";
+}else{
+	$sql = "SELECT * FROM po_log WHERE po_id='".$po_id."'";
+
+	$retval = mysql_query( $sql, $conn );
+
+	if(! $retval )
+	{
+	  die('Could not get data: ' . mysql_error());
+	}
+
+	$row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+    $sql_activity = "select name from activity_log where activity_id='".$row["activity_id"]."'";
+
+    $retval_activity = mysql_query( $sql_activity, $conn );
+
+    if(! $retval_activity )
+    {
+      die('Could not get data: ' . mysql_error());
     }
+
+    $row_activity = mysql_fetch_array($retval_activity, MYSQL_ASSOC);
+
+    $sql_vendor = "select name from vendor_log where vendor_id='".$row["vendor_id"]."'";
+
+    $retval_vendor = mysql_query( $sql_vendor, $conn );
+
+    if(! $retval_vendor )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row_vendor = mysql_fetch_array($retval_vendor, MYSQL_ASSOC);
+
+	mysql_close();
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +73,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Srushti | Project Manaagement System</title>
+    <title>Srushti | Project Management System</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -93,55 +137,50 @@
         <!-- /.container-fluid -->
     </nav>
 
-
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Transactions</h2>
+                    <h2 class="section-heading">PO Log Sheet</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="new_po.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-plus wow bounceIn text-primary"></i>
-                            <h3>PO Allotment</h3>
-                        </div>
-                    </a>
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                	<label>Activity ID : </label><?php echo $row["activity_id"]; ?><br />
+                    <label>Activity : </label><?php echo $row_activity["name"]; ?><br />
+                	<label>Vendor ID : </label><?php echo $row["vendor_id"]; ?><br />
+                    <label>Vendor : </label><?php echo $row_vendor["name"]; ?><br />
+                	<label>Vendor Group : </label><?php echo $row["vendor_grp"]; ?><br />
+                	<label>PO Amount : </label><?php echo $row["po_amount"]; ?><br />
+                    <label>PO Remarks : </label><?php echo $row["po_remarks"]; ?><br />
+                	<label>Added By : </label><?php echo $row["added_by"]; ?><br />
                 </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="payment.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-money wow bounceIn text-primary"></i>
-                            <h3>Payment</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="#">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"></i>
-                            <h3>Final Payment</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="po_approval.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
-                        </div>
-                    </a>
+                <div class="col-md-3"></div>
+            </div>
+            <br />
+            <div class="row">
+	            <div class="col-md-6">
+	            	<center><?php echo '<a href="final_po_log_approve.php?cid='.$po_id.'"><h2>Approve</h2></a>'; ?></center>
+	            </div>
+	            <div class="col-md-6">
+	            	<center><?php echo '<a href="po_edit.php?cid='.$po_id.'"><h2>Edit</h2></a>'; ?></center>
+	            </div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="stage"></div>
                 </div>
             </div>
         </div>
     </section>
-
-    
 
     <section id="footer">
         <div class="container">
@@ -167,6 +206,11 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
 
+    <!-- Ajax -->
+    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 </body>
 
 </html>
+
+<?php } ?>

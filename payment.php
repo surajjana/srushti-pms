@@ -1,21 +1,38 @@
-<?php  
-    require_once("conf/constants.php");
-    session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0){
-        ob_start(); // ensures anything dumped out will be caught
+<?php 
+require_once("conf/constants.php");
+session_start();
 
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
 
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
+mysql_select_db(DB);
 
-        // no redirect
-        header( "Location: $url" );
+$sql_rights = "SELECT rights FROM user WHERE uname='".$_SESSION["pms_user"]."'";
+
+$retval = mysql_query( $sql_rights, $conn );
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}
+
+$row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+if((int)$row["rights"] != 3){
+	echo "Not Autorized!!";
+}else{
+	$sql = "SELECT * FROM po_log WHERE approval_status=1";
+
+    $retval = mysql_query( $sql, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
     }
+
 ?>
 
 <!DOCTYPE html>
@@ -98,45 +115,59 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Transactions</h2>
+                    <h2 class="section-heading">PO Master</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="new_po.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-plus wow bounceIn text-primary"></i>
-                            <h3>PO Allotment</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="payment.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-money wow bounceIn text-primary"></i>
-                            <h3>Payment</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="#">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"></i>
-                            <h3>Final Payment</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="po_approval.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
-                        </div>
-                    </a>
-                </div>
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>PO ID</th>
+                        <th>Activity ID</th>
+                        <th>Activity</th>
+                        <th>Vendor ID</th>
+                        <th>Vendor</th>
+                        <th>PO Amount</th>
+                        <th>PO Balance</th>
+                        <th>Pay</th>
+                        <th>Edit</th>
+                        <th>Delete</th>                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <?php  
+                            while ($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
+
+                                $sql_activity = "select name from activity_log where activity_id='".$row["activity_id"]."'";
+
+                                $retval_activity = mysql_query( $sql_activity, $conn );
+
+                                if(! $retval_activity )
+                                {
+                                  die('Could not get data: ' . mysql_error());
+                                }
+
+                                $row_activity = mysql_fetch_array($retval_activity, MYSQL_ASSOC);
+
+                                $sql_vendor = "select name from vendor_log where vendor_id='".$row["vendor_id"]."'";
+
+                                $retval_vendor = mysql_query( $sql_vendor, $conn );
+
+                                if(! $retval_vendor )
+                                {
+                                  die('Could not get data: ' . mysql_error());
+                                }
+
+                                $row_vendor = mysql_fetch_array($retval_vendor, MYSQL_ASSOC);
+
+                                echo '<tr><td>'.$row["po_id"].'</td><td>'.$row["activity_id"].'</td><td>'.$row_activity["name"].'</td><td>'.$row["vendor_id"].'</td><td>'.$row_vendor["name"].'</td><td>'.$row["po_amount"].'</td><td>'.$row["po_balance"].'</td><td><a href="po_pay.php?cid='.$row["po_id"].'">Pay</a></td><td><a href="po_edit.php?cid='.$row["po_id"].'">Edit</a></td><td><a href="po_delete.php?cid='.$row["po_id"].'">Delete</a></td></tr>';
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -170,3 +201,5 @@
 </body>
 
 </html>
+
+<?php } ?>

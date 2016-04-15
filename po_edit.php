@@ -16,6 +16,50 @@
         // no redirect
         header( "Location: $url" );
     }
+
+    $po_id = $_GET["cid"];
+
+    $conn = mysql_connect(HOST, USER, PASSWORD);
+    if(! $conn )
+    {
+      die('Could not connect: ' . mysql_error());
+    }
+    $sql = "SELECT * FROM po_log where po_id='".$po_id."'";
+
+    mysql_select_db(DB);
+    
+    $retval = mysql_query( $sql, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+    $sql_activity = "select name,venue from activity_log where activity_id='".$row["activity_id"]."'";
+
+    $retval_activity = mysql_query( $sql_activity, $conn );
+
+    if(! $retval_activity )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row_activity = mysql_fetch_array($retval_activity, MYSQL_ASSOC);
+
+    $sql_vendor = "select name from vendor_log where vendor_id='".$row["vendor_id"]."'";
+
+    $retval_vendor = mysql_query( $sql_vendor, $conn );
+
+    if(! $retval_vendor )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row_vendor = mysql_fetch_array($retval_vendor, MYSQL_ASSOC);
+
+    mysql_close();
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +73,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Srushti | Project Manaagement System</title>
+    <title>Srushti | Project Management System</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -49,6 +93,16 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+    <script type="text/javascript">
+      $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+    </script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -93,55 +147,60 @@
         <!-- /.container-fluid -->
     </nav>
 
-
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Transactions</h2>
+                    <h2 class="section-heading">Activity Log Sheet</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="new_po.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-plus wow bounceIn text-primary"></i>
-                            <h3>PO Allotment</h3>
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <label>PO ID : </label><?php echo $po_id; ?><br />
+                <label>Activity ID : </label><?php echo $row["activity_id"]; ?><br />
+                <label>Activity : </label><?php echo $row_activity["name"]; ?><br />
+                <label>Vendor ID : </label><?php echo $row["vendor_id"]; ?><br />
+                <label>Vendor : </label><?php echo $row_vendor["name"]; ?><br />
+                <label>Vendor Group : </label><?php echo $row["vendor_grp"]; ?><br />
+                <label>Venue : </label><?php echo $row_activity["venue"]; ?><br />
+                <label>Remarks : </label><?php echo $row["po_remarks"]; ?><br />
+                <form action="update_po.php" method="get">
+                    <input type="hidden" name="po_id" value='<?php echo $po_id; ?>'>
+                    
+                    
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>PO Amount <span style="color:red;">*</span> :</label>
+                            <input type="text" class="form-control" name="po_amount" required data-validation-required-message="Please enter the value ." value='<?php echo $row["po_amount"]; ?>' >
                         </div>
-                    </a>
+                    </div>
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>PO Balance :</label>
+                            <input type="text" class="form-control" name="po_balance" value='<?php echo $row["po_balance"]; ?>' >
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
                 </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="payment.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-money wow bounceIn text-primary"></i>
-                            <h3>Payment</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="#">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"></i>
-                            <h3>Final Payment</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="po_approval.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
-                        </div>
-                    </a>
+
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="stage"></div>
                 </div>
             </div>
         </div>
     </section>
-
-    
 
     <section id="footer">
         <div class="container">
@@ -166,6 +225,9 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
+
+    <!-- Ajax -->
+    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 </body>
 

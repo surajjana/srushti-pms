@@ -16,6 +16,23 @@
         // no redirect
         header( "Location: $url" );
     }
+
+    $conn = mysql_connect(HOST, USER, PASSWORD);
+    if(! $conn )
+    {
+      die('Could not connect: ' . mysql_error());
+    }
+
+    mysql_select_db(DB);
+
+    $sql = "SELECT po_id,activity_id,vendor_id,po_amount FROM po_log WHERE approval_status=0";
+
+    $retval = mysql_query( $sql, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
 ?>
 
 <!DOCTYPE html>
@@ -98,45 +115,31 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Transactions</h2>
+                    <h2 class="section-heading">PO Approval</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="new_po.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-plus wow bounceIn text-primary"></i>
-                            <h3>PO Allotment</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="payment.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-money wow bounceIn text-primary"></i>
-                            <h3>Payment</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="#">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"></i>
-                            <h3>Final Payment</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="po_approval.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
-                        </div>
-                    </a>
-                </div>
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>PO ID</th>
+                        <th>Activity ID</th>
+                        <th>Vendor ID</th>
+                        <th>PO Amount</th>
+                        <th>Approval</th>                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <?php  
+                            while ($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
+                                echo '<tr><td>'.$row["po_id"].'</td><td>'.$row["activity_id"].'</td><td>'.$row["vendor_id"].'</td><td>'.$row["po_amount"].'</td><td><a href="approve_po.php?cid='.$row["po_id"].'">Approve</a></td></tr>';
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
