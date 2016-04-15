@@ -106,7 +106,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="#">
+                    <a href="new_po.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-plus wow bounceIn text-primary"></i>
                             <h3>PO Allotment</h3>

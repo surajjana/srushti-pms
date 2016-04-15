@@ -1,7 +1,7 @@
 <?php  
     require_once("conf/constants.php");
     session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0 || strlen($_SESSION["pms_user"]) == 0){
+    if(strcmp($_SESSION["pms_user"],"NA") == 0){
         ob_start(); // ensures anything dumped out will be caught
 
         // do stuff here
@@ -16,6 +16,25 @@
         // no redirect
         header( "Location: $url" );
     }
+
+    $conn = mysql_connect(HOST, USER, PASSWORD);
+    if(! $conn )
+    {
+      die('Could not connect: ' . mysql_error());
+    }
+
+    mysql_select_db(DB);
+
+    $sql = "SELECT activity_id,name FROM activity_log";
+
+    $retval = mysql_query( $sql, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    mysql_close();
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +48,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Srushti | Project Management System</title>
+    <title>Srushti | Project Manaagement System</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -77,14 +96,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
-                    <!-- <li>
-                        <a class="page-scroll" href="#">Home</a>
+                    <li>
+                        <a class="page-scroll" href="home.php">Home</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#">About</a>
-                    </li> -->
-                    <li>
-                        <a class="page-scroll" href="#">Welcome <?php echo $_SESSION["pms_user"]; ?></a>
+                        <a class="page-scroll" href="#"><?php echo $_SESSION["pms_user"]; ?></a>
                     </li>
                     <li>
                         <a class="page-scroll" href="logout.php">Logout</a>
@@ -101,66 +117,40 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Project Management System(PMS)</h2>
+                    <h2 class="section-heading">New PO Allotment</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="groups.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-group wow bounceIn text-primary"></i>
-                            <h3>Groups</h3>
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <form action="po_allot.php" method="get">
+                    <div class="control-group form-group">
+                        <div class="controls">
+                            <label>Activity Code <span style="color:red;">*</span> :</label>
+                            <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
+                            <p class="help-block"></p> -->
+                            <select name="activity_id" class="form-control">
+                                <?php  
+                                    while ($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
+                                        if(strlen($row["name"]) > 0){
+                                            echo '<option value="'.$row["activity_id"].'">'.$row["activity_id"].','.ucfirst($row["name"]).'</option>';
+                                        }
+                                    }
+                                    mysql_close();
+                                ?>
+                            </select>
                         </div>
-                    </a>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
                 </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="client.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-user wow bounceIn text-primary"></i>
-                            <h3>Client</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="vendor.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-opencart wow bounceIn text-primary"></i>
-                            <h3>Vendor</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="activity.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-newspaper-o wow bounceIn text-primary"></i>
-                            <h3>Activity</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="transactions.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-money wow bounceIn text-primary"></i>
-                            <h3>Transactions</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="#">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-line-chart wow bounceIn text-primary"></i>
-                            <h3>Reports</h3>
-                        </div>
-                    </a>
-                </div>
+                <div class="col-md-3"></div>
             </div>
         </div>
     </section>
-
-    
 
     
 
