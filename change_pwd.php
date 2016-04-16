@@ -73,7 +73,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
+                <a class="navbar-brand" href="index.php" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -99,7 +99,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Project Management System(PMS)</h2>
+                    <h2 class="section-heading">Change Password</h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -111,21 +111,21 @@
                 <form action="pwd.php" method="post">
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Old Password:</label>
+                            <label>Old Password <span style="color:red;">*</span> :</label>
                             <input type="password" class="form-control" name="old_pwd" required data-validation-required-message="Please enter the value.">
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>New Password:</label>
+                            <label>New Password <span style="color:red;">*</span> :</label>
                             <input type="password" class="form-control" name="new_pwd" required data-validation-required-message="Please enter the value.">
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Confirm New Password:</label>
+                            <label>Confirm New Password <span style="color:red;">*</span> :</label>
                             <input type="password" class="form-control" name="new_pwd_cnfrm" required data-validation-required-message="Please enter the value.">
                             <p class="help-block"></p>
                         </div>

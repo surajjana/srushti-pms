@@ -17,8 +17,29 @@
         // no redirect
         header( "Location: $url" );
     }
-?>
 
+    $uname = $_GET["cid"];
+
+    $conn = mysql_connect(HOST, USER, PASSWORD);
+    if(! $conn )
+    {
+      die('Could not connect: ' . mysql_error());
+    }
+    $sql = "SELECT email,rights FROM user where uname='".$uname."'";
+
+    mysql_select_db(DB);
+    
+    $retval = mysql_query( $sql, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+    mysql_close();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +72,10 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -99,35 +124,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Add New User</h2>
+                    <h2 class="section-heading">PO Log Sheet</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-                <form action="user.php" method="post">
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                <form action="update_user.php" method="post">
+                    <input type="hidden" name="uname" value='<?php echo $uname; ?>'>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Username <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="uname" required data-validation-required-message="Please enter the value.">
-                            <p class="help-block"></p>
+                            <input type="text" class="form-control" name="uname_new" required data-validation-required-message="Please enter the value ." value='<?php echo $uname; ?>' >
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Email ID <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="email" required data-validation-required-message="Please enter the value.">
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Password <span style="color:red;">*</span> :</label>
-                            <input type="password" class="form-control" name="pwd" required data-validation-required-message="Please enter the value.">
-                            <p class="help-block"></p>
+                            <label>Email ID :</label>
+                            <input type="text" class="form-control" name="email" value='<?php echo $row["email"]; ?>' >
                         </div>
                     </div>
                     <div class="control-group form-group">
@@ -142,9 +159,18 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
-                
                 </div>
-                <div class="col-md-4"></div>
+
+                <div class="col-md-3"></div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="stage"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -172,6 +198,9 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
+
+    <!-- Ajax -->
+    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 
 </body>
 

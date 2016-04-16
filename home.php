@@ -111,6 +111,7 @@
                     <?php  
                         if((int)$row["rights"] == 3){
                             echo '<li><a class="page-scroll" href="add_user.php">Add User</a></li>';
+                            echo '<li><a class="page-scroll" href="modify_user.php">Modify User</a></li>';
                         }
                     ?>
                     <li>

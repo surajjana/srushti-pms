@@ -1,24 +1,26 @@
-<?php  
-    error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-    require_once("conf/constants.php");
-    session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0 || strlen($_SESSION["pms_user"]) == 0 ){
-        ob_start(); // ensures anything dumped out will be caught
+<?php 
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+require_once("conf/constants.php");
+session_start();
 
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
 
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
+mysql_select_db(DB);
 
-        // no redirect
-        header( "Location: $url" );
-    }
+$sql = "SELECT uname,email,rights FROM user";
+
+$retval = mysql_query( $sql, $conn );
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}
+
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +33,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Srushti | Project Management System</title>
+    <title>Srushti | Project Manaagement System</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -95,59 +97,51 @@
         <!-- /.container-fluid -->
     </nav>
 
+
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Add New User</h2>
+                    <h2 class="section-heading">PMS Users</h2>
                     <hr class="primary">
                 </div>
             </div>
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-                <form action="user.php" method="post">
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Username <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="uname" required data-validation-required-message="Please enter the value.">
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Email ID <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="email" required data-validation-required-message="Please enter the value.">
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Password <span style="color:red;">*</span> :</label>
-                            <input type="password" class="form-control" name="pwd" required data-validation-required-message="Please enter the value.">
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Rights <span style="color:red;">*</span> :</label>
-                            <select name="rights_1" class="form-control">
-                                <option value="1">Normal</option>
-                                <option value="2">Intermediate</option>
-                                <option value="3">Admin</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                
-                </div>
-                <div class="col-md-4"></div>
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Username</th>
+                        <th>Email ID</th>
+                        <th>Rights</th>
+                        <th>Edit</th>
+                        <th>Delete</th>                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <?php  
+                            while ($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
+
+                                $status = '';
+                                if($row["rights"] == 3){
+                                    $status = 'Admin';
+                                }elseif($row["rights"] == 2){
+                                    $status = 'Intermediate';
+                                }else{
+                                    $status = 'Normal';
+                                }
+
+                                echo '<tr><td>'.$row["uname"].'</td><td>'.$row["email"].'</td><td>'.$status.'</td><td><a href="user_edit.php?cid='.$row["uname"].'">Edit</a></td><td><a href="user_delete.php?cid='.$row["uname"].'">Delete</a></td></tr>';
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
+
+    
 
     <section id="footer">
         <div class="container">

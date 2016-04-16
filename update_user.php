@@ -1,24 +1,44 @@
 <?php  
-    error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-    require_once("conf/constants.php");
-    session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0 || strlen($_SESSION["pms_user"]) == 0 ){
-        ob_start(); // ensures anything dumped out will be caught
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+require_once("conf/constants.php");
 
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+session_start();
 
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
 
-        // no redirect
-        header( "Location: $url" );
-    }
+mysql_select_db(DB);
+
+$uname = $_POST["uname"];
+$uname_new = $_POST["uname_new"];
+$email = $_POST["email"];
+$ritghts = $_POST["rights_1"];
+
+$user = '';
+
+if(strcmp($uname, $uname_new) != 0){
+    $user = $uname_new;
+}else{
+    $user = $uname;
+}
+
+
+$sql_insert = "update user set uname='".$user."',email='".$email."',rights='".$rights."' where uname='".$uname."'";
+
+$retval = mysql_query( $sql_insert, $conn );
+
+mysql_close();
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}else{
+	/*echo '<center><h2>Client Log Sheet Updated!!</h2><br /><a href="client.php">Click Here</a></center>';
+}*/
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +51,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Srushti | Project Management System</title>
+    <title>Srushti | Project Manaagement System</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
@@ -95,59 +115,18 @@
         <!-- /.container-fluid -->
     </nav>
 
+
     <section id="services">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Add New User</h2>
-                    <hr class="primary">
+                    <h2 class="section-heading">User Data Updated!!</h2>
                 </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-                <form action="user.php" method="post">
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Username <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="uname" required data-validation-required-message="Please enter the value.">
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Email ID <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="email" required data-validation-required-message="Please enter the value.">
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Password <span style="color:red;">*</span> :</label>
-                            <input type="password" class="form-control" name="pwd" required data-validation-required-message="Please enter the value.">
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Rights <span style="color:red;">*</span> :</label>
-                            <select name="rights_1" class="form-control">
-                                <option value="1">Normal</option>
-                                <option value="2">Intermediate</option>
-                                <option value="3">Admin</option>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                
-                </div>
-                <div class="col-md-4"></div>
             </div>
         </div>
     </section>
+
+    
 
     <section id="footer">
         <div class="container">
@@ -176,3 +155,5 @@
 </body>
 
 </html>
+
+<?php } ?>

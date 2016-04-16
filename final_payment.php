@@ -25,7 +25,7 @@ $row = mysql_fetch_array($retval, MYSQL_ASSOC);
 if((int)$row["rights"] != 3){
 	echo "Not Autorized!!";
 }else{
-	$sql = "SELECT * FROM po_log WHERE approval_status=1";
+	$sql = "SELECT * FROM po_log WHERE approval_status=1 AND po_balance<>0";
 
     $retval = mysql_query( $sql, $conn );
 
