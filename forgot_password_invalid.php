@@ -97,6 +97,7 @@
                             <input type="text" class="form-control" name="email" required data-validation-required-message="Please enter your email id.">
                         </div>
                     </div>
+                    <p style="color:red;">Invalid credentials</p>
                     <button type="submit" class="btn btn-primary">Change Password</button>
 
                 </form>
