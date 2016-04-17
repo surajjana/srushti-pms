@@ -35,7 +35,7 @@ if($row['email']){
 		$to = $_POST['email'];
 		$subject = 'Srushti PMS Password Change';
 		$message = '<html><body>
-						<p>Hi '.$_POST['uname'].'!!</p><br /><br />
+						<p>Hi '.$_POST['uname'].'!!</p><br />
 						<p>New Password : '.$new_pwd.'<br /><br />
 						<p>Thank you,</p>
 						<p>Srushti Ads</p>
