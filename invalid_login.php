@@ -86,14 +86,14 @@
                 <form name="sentMessage" id="contactForm" action="auth.php" method="post" novalidate>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>User ID:</label>
+                            <label>User ID <span style="color:red;">*</span> :</label>
                             <input type="text" class="form-control" name="uname" id="uname" required data-validation-required-message="Please enter your name.">
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Password:</label>
+                            <label>Password <span style="color:red;">*</span> :</label>
                             <input type="password" class="form-control" name="pwd" id="pwd" required data-validation-required-message="Please enter your phone number.">
                         </div>
                     </div>
@@ -101,7 +101,7 @@
                     <button type="submit" class="btn btn-primary">Log In</button>
 
                 </form>
-                    <center><a href="#" style="color:blue;">Forgot Password</a></center>
+                    <center><a href="forgot_password.php" style="color:blue;">Forgot Password</a></center>
                 </div>
                 <div class="col-md-4"></div>
             </div>

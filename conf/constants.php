@@ -6,10 +6,10 @@ define("USER", "root");
 define("PASSWORD","hack123");
 define("DB", "shrusti_pms");
 
-/*define("DOMAIN", "http://pms.careersensy.com/");
+/*define("DOMAIN", "http://52.34.226.223/pms/");
 define("HOST", "localhost");
-define("USER", "srushtin_suraj");
-define("PASSWORD","$Hack123#");
-define("DB", "srushtin_pms_new");*/
+define("USER", "root");
+define("PASSWORD","hack123");
+define("DB", "srushti_pms");*/
 
 ?>

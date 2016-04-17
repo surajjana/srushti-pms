@@ -1,42 +1,3 @@
-<?php  
-    error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-    require_once("conf/constants.php");
-    session_start();
-    /*if(isset($_SESSION["pms_user"])){
-
-    }*/
-    if (strlen($_SESSION["pms_user"]) == 0 ) {
-        ob_start(); // ensures anything dumped out will be caught
-
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
-
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
-
-        // no redirect
-        header( "Location: $url" );
-    }elseif(strcmp($_SESSION["pms_user"],"NA") != 0){
-        ob_start(); // ensures anything dumped out will be caught
-
-        // do stuff here
-        $url = DOMAIN.'home.php'; // this can be set based on whatever
-
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
-
-        // no redirect
-        header( "Location: $url" );
-    }else{
-       ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -90,7 +51,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
+                <a class="navbar-brand" href="index.php" style="padding:5px;"><img src="img/srushti_logo_new.png" alt=""/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -113,7 +74,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Project Management System(PMS)</h2>
+                    <h2 class="section-heading">Change Password</h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -122,23 +83,23 @@
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                <form name="sentMessage" id="contactForm" action="auth.php" method="post" novalidate>
+                <form action="#" method="post" novalidate>
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>User ID <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="uname" id="uname" required data-validation-required-message="Please enter your name.">
+                            <input type="text" class="form-control" name="uname" required data-validation-required-message="Please enter your username.">
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Password <span style="color:red;">*</span> :</label>
-                            <input type="password" class="form-control" name="pwd" id="pwd" required data-validation-required-message="Please enter your phone number.">
+                            <label>Email ID <span style="color:red;">*</span> :</label>
+                            <input type="password" class="form-control" name="email" required data-validation-required-message="Please enter your email id.">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Log In</button>
+                    <button type="submit" class="btn btn-primary">Change Password</button>
+
                 </form>
-                <center><a href="forgot_password.php" style="color:blue;">Forgot Password</a></center>
                 </div>
                 <div class="col-md-4"></div>
             </div>
@@ -172,6 +133,3 @@
 </body>
 
 </html>
-
-<?php     }
-?>
