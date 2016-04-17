@@ -27,7 +27,7 @@
 	mysql_select_db(DB);
 
 	$sql = "SELECT * FROM activity_log WHERE activity_id='".$activity_id."'";
-	$sql_vendor = "SELECT vendor_id,name FROM vendor_log";
+	$sql_vendor = "SELECT vendor_id,name FROM vendor_log WHERE approval_status=1";
 	$sql_vendor_grp = "SELECT name FROM vendor_grp";
 
 	$retval = mysql_query( $sql, $conn );

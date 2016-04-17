@@ -24,7 +24,7 @@
       die('Could not connect: ' . mysql_error());
     }
     $sql_activity = "SELECT id,name FROM activity_grp";
-    $sql_client = "SELECT client_id,name FROM client_log";
+    $sql_client = "SELECT client_id,name FROM client_log WHERE approval_status=1";
 
     mysql_select_db(DB);
     $retval_activity = mysql_query( $sql_activity, $conn );

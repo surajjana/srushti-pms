@@ -15,7 +15,7 @@ mysql_select_db(DB);
 $uname = $_POST["uname"];
 $uname_new = $_POST["uname_new"];
 $email = $_POST["email"];
-$ritghts = $_POST["rights_1"];
+$rights = $_POST["rights_1"];
 
 $user = '';
 

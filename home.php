@@ -35,6 +35,48 @@
     }
 
     $row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+    $sql_client = "select count(*) from client_log where approval_status=0";
+    $retval = mysql_query( $sql_client, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row_client = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+    $sql_vendor = "select count(*) from vendor_log where approval_status=0";
+    $retval = mysql_query( $sql_vendor, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row_vendor = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+    $sql_activity = "select count(*) from activity_log where approval_status=0";
+    $retval = mysql_query( $sql_activity, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row_acitvity = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+    $sql_po = "select count(*) from po_log where approval_status=0";
+    $retval = mysql_query( $sql_po, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row_po = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -102,9 +144,32 @@
                     <li>
                         <a class="page-scroll" href="#">About</a>
                     </li> -->
-                    <li>
-                        <a class="page-scroll" href="#">Welcome <?php echo $_SESSION["pms_user"]; ?></a>
-                    </li>
+                     <?php  
+                        if((int)$row["rights"] == 3){
+                            echo '
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Welcome '.$_SESSION["pms_user"].'<b class="caret"></b></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="client_approval.php">Client Approval : '.$row_client["count(*)"].'</a>
+                                            </li>
+                                            <li>
+                                                <a href="vendor_approval.php">Vendor Approval : '.$row_vendor["count(*)"].'</a>
+                                            </li>
+                                            <li>
+                                                <a href="acctivity_approval.php">Activity Approval : '.$row_acitvity["count(*)"].'</a>
+                                            </li>
+                                            <li>
+                                                <a href="po_approval.php">PO Approval : '.$row_po["count(*)"].'</a>
+                                            </li>
+                                        </ul>
+                                    </li>';
+                        }else{
+                            echo '<li>
+                                    <a class="page-scroll" href="#">'.$_SESSION["pms_user"].'</a>
+                                </li>';
+                        }
+                    ?>
                     <li>
                         <a class="page-scroll" href="change_pwd.php">Change Password</a>
                     </li>

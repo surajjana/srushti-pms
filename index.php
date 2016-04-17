@@ -138,7 +138,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Log In</button>
                 </form>
-                
+                <center><a href="#" style="color:blue;">Forgot Password</a></center>
                 </div>
                 <div class="col-md-4"></div>
             </div>
