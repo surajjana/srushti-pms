@@ -1,32 +1,33 @@
-<?php  
-    error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-    require_once("conf/constants.php");
-    session_start();
-    if(strcmp($_SESSION["pms_user"],"NA") == 0 || strlen($_SESSION["pms_user"]) == 0 ){
-        ob_start(); // ensures anything dumped out will be caught
+<?php 
+error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+require_once("conf/constants.php");
+session_start();
 
-        // do stuff here
-        $url = DOMAIN.'invalid_login.php'; // this can be set based on whatever
+$activity_id = $_GET["activity_id"];
 
-        // clear out the output buffer
-        while (ob_get_status()) 
-        {
-            ob_end_clean();
-        }
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
 
-        // no redirect
-        header( "Location: $url" );
-    }
+mysql_select_db(DB);
 
-    $conn = mysql_connect(HOST, USER, PASSWORD);
-    if(! $conn )
-    {
-      die('Could not connect: ' . mysql_error());
-    }
+$sql_rights = "SELECT rights FROM user WHERE uname='".$_SESSION["pms_user"]."'";
 
-    mysql_select_db(DB);
+$retval = mysql_query( $sql_rights, $conn );
 
-    $sql = "SELECT activity_id,name FROM activity_log";
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}
+
+$row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+if((int)$row["rights"] != 3){
+	echo "Not Autorized!!";
+}else{
+	$sql = "SELECT * FROM po_log WHERE approval_status=1 AND po_balance<>0 AND activity_id='".$activity_id."'";
 
     $retval = mysql_query( $sql, $conn );
 
@@ -35,7 +36,6 @@
       die('Could not get data: ' . mysql_error());
     }
 
-    mysql_close();
 ?>
 
 <!DOCTYPE html>
@@ -125,30 +125,50 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                <form action="final_payment_final.php" method="get">
-                    <div class="control-group form-group">
-                        <div class="controls">
-                            <label>Activity Code <span style="color:red;">*</span> :</label>
-                            <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
-                            <p class="help-block"></p> -->
-                            <select name="activity_id" class="form-control">
-                                <?php  
-                                    while ($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
-                                        if(strlen($row["name"]) > 0){
-                                            echo '<option value="'.$row["activity_id"].'">'.$row["activity_id"].','.ucfirst($row["name"]).'</option>';
-                                        }
-                                    }
-                                    mysql_close();
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-                </div>
-                <div class="col-md-3"></div>
+                <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>PO ID</th>
+                        <th>Activity ID</th>
+                        <th>Activity</th>
+                        <th>Vendor ID</th>
+                        <th>Vendor</th>
+                        <th>PO Amount</th>
+                        <th>PO Balance</th>
+                        <th>Pay</th>                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                        <?php  
+                            while ($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
+
+                                $sql_activity = "select name from activity_log where activity_id='".$row["activity_id"]."'";
+
+                                $retval_activity = mysql_query( $sql_activity, $conn );
+
+                                if(! $retval_activity )
+                                {
+                                  die('Could not get data: ' . mysql_error());
+                                }
+
+                                $row_activity = mysql_fetch_array($retval_activity, MYSQL_ASSOC);
+
+                                $sql_vendor = "select name from vendor_log where vendor_id='".$row["vendor_id"]."'";
+
+                                $retval_vendor = mysql_query( $sql_vendor, $conn );
+
+                                if(! $retval_vendor )
+                                {
+                                  die('Could not get data: ' . mysql_error());
+                                }
+
+                                $row_vendor = mysql_fetch_array($retval_vendor, MYSQL_ASSOC);
+
+                                echo '<tr><td>'.$row["po_id"].'</td><td>'.$row["activity_id"].'</td><td>'.$row_activity["name"].'</td><td>'.$row["vendor_id"].'</td><td>'.$row_vendor["name"].'</td><td>'.$row["po_amount"].'</td><td>'.$row["po_balance"].'</td><td><a href="final_pay.php?cid='.$row["po_id"].'">Pay</a></td></tr>';
+                            }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </section>
@@ -182,3 +202,5 @@
 </body>
 
 </html>
+
+<?php } ?>

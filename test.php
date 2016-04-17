@@ -8,29 +8,16 @@
 
     mysql_select_db(DB);
 
-    $sql = "SELECT vendor_id FROM vendor_log ORDER BY vendor_id DESC LIMIT 1";
+    $sql = "SELECT sum( po_amount ) , sum( po_balance )FROM po_log WHERE activity_id = '".$activity_id."'";
 
-	$retval = mysql_query( $sql, $conn );
+    $retval = mysql_query( $sql, $conn );
 
-	if(! $retval )
-	{
-	  die('Could not get data: ' . mysql_error());
-	}
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
 
-	$row = mysql_fetch_array($retval, MYSQL_ASSOC);
-	$vendor_code = $row["vendor_id"];
-	$arr = explode("VL11",$vendor_code);
-	/*$val = (int)$arr[1];
-	$val += 1;
-	$res = 'VL11';
-	if($val<10){
-		$res .= '00'.(string)$val;
-	}elseif($val>9 && $val<100){
-		$res .= '0'.(string)$val;
-	}else{
-		$res .= (string)$val;
-	}
-	$vendor_id = $res;*/
-	var_dump($arr);
+    $row = mysql_fetch_array($retval, MYSQL_ASSOC);
+	var_dump($row);
 
 ?>

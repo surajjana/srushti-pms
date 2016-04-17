@@ -167,6 +167,27 @@ if((int)$row["rights"] != 3){
                     </tbody>
                 </table>
             </div>
+            <div class="row">
+                <?php  
+                    $sql = "SELECT sum( po_amount ) , sum( po_balance )FROM po_log WHERE activity_id = '".$activity_id."'";
+
+                    $retval = mysql_query( $sql, $conn );
+
+                    if(! $retval )
+                    {
+                      die('Could not get data: ' . mysql_error());
+                    }
+
+                    $row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+                ?>
+                <div class="col-md-6">
+                    <center>Total Amount : <?php echo $row["sum( po_amount )"]; ?> INR</center>
+                </div>
+                <div class="col-md-6">
+                    <center>Total Balance : <?php echo $row["sum( po_balance )"]; ?> INR</center>
+                </div>
+            </div>
         </div>
     </section>
 
