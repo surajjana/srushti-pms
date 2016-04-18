@@ -76,6 +76,9 @@
         </tr>'.$val.$total.'
     </table>
 
+    <br /><br /><br /><br /><br /><br />
+    <p style="margin-left:500px;">Authorised Signature</p>
+
 </page>';
 
     require_once(dirname(__FILE__).'/html2pdf/html2pdf.class.php');
