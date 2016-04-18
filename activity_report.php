@@ -194,7 +194,7 @@ if((int)$row["rights"] != 3){
                     <center><a href="pdf/pdf_report.php?activity_id=<?php echo $activity_id; ?>" target="_blank"><button class="btn btn-primary">Export To PDF</button></a></center>
                 </div>
                 <div class="col-md-6">
-                    <center><a href="#" target="_blank"><button class="btn btn-primary">Export To CSV</button></a></center>
+                    <center><a href="csv/csv_report.php?activity_id=<?php echo $activity_id; ?>" target="_blank"><button class="btn btn-primary">Export To CSV</button></a></center>
                 </div>
             </div>
         </div>

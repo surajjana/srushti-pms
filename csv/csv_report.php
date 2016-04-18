@@ -1,26 +1,11 @@
 <?php  
-	require_once("conf/constants.php");
-
-	/*$conn = mysql_connect(HOST,USER,PASSWORD);
-
-	if(! $conn )
-	{
-	  die('Could not connect: ' . mysql_error());
-	}
-
-	mysql_select_db(DB);
-
-	$sql = "select email from user where rights=3";
-
-	$retval = mysql_query( $sql, $conn );
-
-	if(! $retval )
-	{
-	  die('Could not get data: ' . mysql_error());
-	}*/
+	require_once("../conf/constants.php");
+	$activity_id = $_GET["activity_id"];
+	$header = 'Content-Disposition: attachment; filename='.str_replace("/","_",$activity_id).'.csv';
 	// output headers so that the file is downloaded rather than displayed
 	header('Content-Type: text/csv; charset=utf-8');
-	header('Content-Disposition: attachment; filename=data.csv');
+	/*header('Content-Disposition: attachment; filename=data.csv');*/
+	header($header);
 
 	// create a file pointer connected to the output stream
 	$output = fopen('php://output', 'w');
@@ -35,7 +20,4 @@
 
 	// loop over the rows, outputting them
 	while ($row = mysql_fetch_assoc($rows)) fputcsv($output, $row);
-
-
-
 ?>
