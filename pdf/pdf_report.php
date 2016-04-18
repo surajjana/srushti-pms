@@ -59,7 +59,12 @@
 
     <br />
 
-    
+    <style type="css/text">
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+    </style>
 
     <table border="0.5" cellpadding="0" cellspacing="0" align="center">
         <tr>
