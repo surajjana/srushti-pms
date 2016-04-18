@@ -188,6 +188,15 @@ if((int)$row["rights"] != 3){
                     <center>Total Balance : <?php echo $row["sum( po_balance )"]; ?> INR</center>
                 </div>
             </div>
+            <br />
+            <div class="row"> 
+                <div class="col-md-6" style="margin-bottom:10px;">
+                    <center><a href="pdf/pdf_report.php?activity_id=<?php echo $activity_id; ?>" target="_blank"><button class="btn btn-primary">Export To PDF</button></a></center>
+                </div>
+                <div class="col-md-6">
+                    <center><a href="#" target="_blank"><button class="btn btn-primary">Export To CSV</button></a></center>
+                </div>
+            </div>
         </div>
     </section>
 
