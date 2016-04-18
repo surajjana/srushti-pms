@@ -39,6 +39,19 @@
         $val .= '<tr><td>'.$row["po_id"].'</td><td>'.$row["vendor_id"].'</td><td>'.$row_vendor["name"].'</td><td>'.$row["po_amount"].'</td><td>'.$row["po_balance"].'</td></tr>';
     }
 
+    $sql = "SELECT sum( po_amount ) , sum( po_balance )FROM po_log WHERE activity_id = '".$activity_id."'";
+
+    $retval = mysql_query( $sql, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+    $total = '<tr><td colspan="3">Total</td><td>'.$row["sum( po_amount )"].'</td><td>'.$row["sum( po_balance )"].'</td></tr>';
+
 
     $content = '
 <page>
@@ -55,7 +68,7 @@
             <th>Vendor</th>
             <th>PO Amount</th>
             <th>PO Balance</th>
-        </tr>'.$val.'
+        </tr>'.$val.$total.'
     </table>
 
 </page>';
