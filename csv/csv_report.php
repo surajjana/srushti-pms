@@ -33,4 +33,16 @@
 
         fputcsv($output, array($row["po_id"],$row["vendor_id"],$row_vendor["name"],$row["po_amount"],$row["po_balance"]));
 	}
+
+	$sql = "SELECT sum( po_amount ) , sum( po_balance )FROM po_log WHERE activity_id = '".$activity_id."'";
+
+    $retval = mysql_query( $sql );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row = mysql_fetch_array($retval, MYSQL_ASSOC);
+    fputcsv($output, array('','','Total', $row["sum( po_amount )"],$row["sum( po_balance )"]));
 ?>
