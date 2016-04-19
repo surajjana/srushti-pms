@@ -11,13 +11,26 @@
 	$output = fopen('php://output', 'w');
 
 	// output the column headings
-	fputcsv($output, array('Column 1', 'Column 2', 'Column 3'));
+	fputcsv($output, array('PO No.', 'Vendor ID', 'Vendor', 'PO Amount', 'PO Balance'));
 
 	// fetch the data
 	mysql_connect(HOST, USER, PASSWORD);
 	mysql_select_db(DB);
-	$rows = mysql_query('SELECT uname,email,rights FROM user');
+	$rows = mysql_query("SELECT * FROM po_log WHERE activity_id='".$activity_id."'");
 
 	// loop over the rows, outputting them
-	while ($row = mysql_fetch_assoc($rows)) fputcsv($output, $row);
+	while ($row = mysql_fetch_assoc($rows)){
+		$sql_vendor = "select name from vendor_log where vendor_id='".$row["vendor_id"]."'";
+
+        $retval_vendor = mysql_query( $sql_vendor);
+
+        if(! $retval_vendor )
+        {
+          die('Could not get data: ' . mysql_error());
+        }
+
+        $row_vendor = mysql_fetch_array($retval_vendor, MYSQL_ASSOC);
+
+        fputcsv($output, array($row["po_id"],$row["vendor_id"],$row_vendor["name"],$row["po_amount"],$row["po_balance"]));
+	}
 ?>
