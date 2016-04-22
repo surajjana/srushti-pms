@@ -129,14 +129,14 @@ if((int)$row["rights"] != 3){
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                	<label>Activity ID : </label><?php echo $row["activity_id"]; ?><br />
-                	<label>Client ID : </label><?php echo $row["client_id"]; ?><br />
-                	<label>From Date : </label><?php echo $row["fromDate"]; ?><br />
-                	<label>To Date : </label><?php echo $row["toDate"]; ?><br />
-                	<label>Activity Group : </label><?php echo $row["activity_grp"]; ?><br />
-                	<label>Activity Name : </label><?php echo $row["name"]; ?><br />
-                	<label>Venue : </label><?php echo $row["venue"]; ?><br />
-                	<label>Remarks : </label><?php echo $row["remarks"]; ?><br />
+                	<label>Activity ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["activity_id"]; ?><br />
+                	<label>Client ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["client_id"]; ?><br />
+                	<label>From Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["fromDate"]; ?><br />
+                	<label>To Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["toDate"]; ?><br />
+                	<label>Activity Group&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["activity_grp"]; ?><br />
+                	<label>Activity Name&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["name"]; ?><br />
+                	<label>Venue&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["venue"]; ?><br />
+                	<label>Remarks&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["remarks"]; ?><br />
                 </div>
                 <div class="col-md-3"></div>
             </div>

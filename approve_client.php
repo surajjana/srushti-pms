@@ -128,31 +128,31 @@ if((int)$row["rights"] != 3){
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                	<label>Client ID : </label><?php echo $row["client_id"]; ?><br />
-                	<label>Client Group : </label><?php echo $row["client_grp"]; ?><br />
-                	<label>Name : </label><?php echo $row["name"]; ?><br />
-                	<label>Address : </label><?php echo $row["address"]; ?><br />
-                	<label>City : </label><?php echo $row["city"]; ?><br />
-                	<label>State : </label><?php echo $row["state"]; ?><br />
-                	<label>Office Phone : </label><?php echo $row["office_phn"]; ?><br />
-                	<label>Mobile : </label><?php echo $row["mobile"]; ?><br />
-                	<label>FAX : </label><?php echo $row["fax"]; ?><br />
-                	<label>Email ID : </label><?php echo $row["email"]; ?><br />
-                	<label>Contact Person : </label><?php echo $row["contact_person"]; ?><br />
+                	<label>Client ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["client_id"]; ?><br />
+                	<label>Client Group&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["client_grp"]; ?><br />
+                	<label>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["name"]; ?><br />
+                	<label>Address&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["address"]; ?><br />
+                	<label>City&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["city"]; ?><br />
+                	<label>State&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["state"]; ?><br />
+                	<label>Office Phone&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["office_phn"]; ?><br />
+                	<label>Mobile&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["mobile"]; ?><br />
+                	<label>FAX&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["fax"]; ?><br />
+                	<label>Email ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["email"]; ?><br />
+                	<label>Contact Person&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["contact_person"]; ?><br />
                 </div>
 
                 <div class="col-md-6"> 
-                	<label>Contact No. : </label><?php echo $row["contact_no"]; ?><br />
-                	<label>Website : </label><?php echo $row["website"]; ?><br />                 
-                	<label>PAN No. : </label><?php echo $row["pan"]; ?><br />
-                	<label>TIN No. : </label><?php echo $row["tin"]; ?><br />
-                	<label>CST No. : </label><?php echo $row["cst"]; ?><br />
-                	<label>ECC No. : </label><?php echo $row["ecc"]; ?><br />
-                	<label>Service Tax No. : </label><?php echo $row["service_tax_no"]; ?><br />
-                	<label>Bank Name : </label><?php echo $row["bank_name"]; ?><br />
-                	<label>Account No. : </label><?php echo $row["account_no"]; ?><br />
-                	<label>Bank Brach : </label><?php echo $row["bank_branch"]; ?><br />
-                	<label>IFSC Code : </label><?php echo $row["ifsc"]; ?><br />
+                	<label>Contact No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["contact_no"]; ?><br />
+                	<label>Website&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["website"]; ?><br />                 
+                	<label>PAN No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["pan"]; ?><br />
+                	<label>TIN No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["tin"]; ?><br />
+                	<label>CST No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["cst"]; ?><br />
+                	<label>ECC No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["ecc"]; ?><br />
+                	<label>Service Tax No.&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["service_tax_no"]; ?><br />
+                	<label>Bank Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["bank_name"]; ?><br />
+                	<label>Account No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["account_no"]; ?><br />
+                	<label>Bank Brach&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["bank_branch"]; ?><br />
+                	<label>IFSC Code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp; </label><?php echo $row["ifsc"]; ?><br />
                 </div>
             </div>
             <br />

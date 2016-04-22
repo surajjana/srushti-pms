@@ -115,7 +115,7 @@ if(! $retval )
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading"><?php echo "Dtat inserted!!"; ?></h2>
+                    <h2 class="section-heading"><?php echo "Data inserted!!"; ?></h2>
                     <br />
                     <a href="state_groups.php">Click Here</a>
                     <!-- <hr class="primary"> -->

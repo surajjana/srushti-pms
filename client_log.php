@@ -246,14 +246,14 @@
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>PAN No <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="pan" id="" required data-validation-required-message="Please enter your PAN number.">
+                            <label>PAN No:</label>
+                            <input type="text" class="form-control" name="pan" id="">
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>TIN No <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="tin" id="" required data-validation-required-message="Please enter your TIN number.">
+                            <label>TIN No:</label>
+                            <input type="text" class="form-control" name="tin" id="">
                         </div>
                     </div>
                     <div class="control-group form-group">

@@ -46,10 +46,10 @@ if(! $retval )
 
 $row = mysql_fetch_array($retval, MYSQL_ASSOC);
 $vendor_code = $row["vendor_id"];
-$arr = explode("VL11",$vendor_code);
+$arr = explode("VD11",$vendor_code);
 $val = (int)$arr[1];
 $val += 1;
-$res = 'VL11';
+$res = 'VD11';
 if($val<10){
 	$res .= '00'.(string)$val;
 }elseif($val>9 && $val<100){
