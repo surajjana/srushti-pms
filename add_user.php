@@ -135,8 +135,7 @@
                             <label>Rights <span style="color:red;">*</span> :</label>
                             <select name="rights_1" class="form-control">
                                 <option value="1">Normal</option>
-                                <option value="2">Intermediate</option>
-                                <option value="3">Admin</option>
+                                <option value="2">Admin</option>
                             </select>
                         </div>
                     </div>

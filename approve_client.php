@@ -24,7 +24,7 @@ if(! $retval )
 
 $row = mysql_fetch_array($retval, MYSQL_ASSOC);
 
-if((int)$row["rights"] != 3){
+if((int)$row["rights"] != 2){
 	echo "Not Autorized!!";
 }else{
 	$sql = "SELECT * FROM client_log WHERE client_id='".$client_id."'";

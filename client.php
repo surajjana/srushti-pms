@@ -17,6 +17,25 @@
         // no redirect
         header( "Location: $url" );
     }
+
+    $conn = mysql_connect(HOST, USER, PASSWORD);
+    if(! $conn )
+    {
+      die('Could not connect: ' . mysql_error());
+    }
+
+    mysql_select_db(DB);
+
+    $sql_rights = "SELECT rights FROM user WHERE uname='".$_SESSION["pms_user"]."'";
+
+    $retval = mysql_query( $sql_rights, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row = mysql_fetch_array($retval, MYSQL_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -106,19 +125,14 @@
         </div>
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
+                
+                <?php  
+                    if((int)$row["rights"] == 2){
+                        echo '<div class="col-lg-4 col-md-6 text-center touch-anchor">
                     <a href="client_log.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-user-plus wow bounceIn text-primary"></i>
                             <h3>Add Log</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6 text-center touch-anchor">
-                    <a href="client_approval.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
                         </div>
                     </a>
                 </div>
@@ -130,6 +144,33 @@
                         </div>
                     </a>
                 </div>
+                        <div class="col-lg-4 col-md-6 text-center touch-anchor">
+                    <a href="client_approval.php">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
+                            <h3>Approval</h3>
+                        </div>
+                    </a>
+                </div>';
+                    }else{
+                        echo '<div class="col-md-6 text-center touch-anchor">
+                    <a href="client_log.php">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-user-plus wow bounceIn text-primary"></i>
+                            <h3>Add Log</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6 text-center touch-anchor">
+                    <a href="client_master.php">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-chain wow bounceIn text-primary"></i>
+                            <h3>Master</h3>
+                        </div>
+                    </a>
+                </div>';
+                    }
+                ?>
             </div>
         </div>
     </section>

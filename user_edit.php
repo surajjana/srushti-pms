@@ -124,7 +124,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">PO Log Sheet</h2>
+                    <h2 class="section-heading">PMS User Edit</h2>
                     <hr class="primary">
                 </div>
             </div>
@@ -152,8 +152,7 @@
                             <label>Rights <span style="color:red;">*</span> :</label>
                             <select name="rights_1" class="form-control">
                                 <option value="1">Normal</option>
-                                <option value="2">Intermediate</option>
-                                <option value="3">Admin</option>
+                                <option value="2">Admin</option>
                             </select>
                         </div>
                     </div>

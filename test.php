@@ -1,7 +1,7 @@
 <?php  
 	require_once("conf/constants.php");
 
-	$activity_code = '16/SA/00001';
+	/*$activity_code = '16/SA/00001';
 	$arr = explode("/",$activity_code);
 	$val = (int)$arr[2];
 	$val += 1;
@@ -24,6 +24,8 @@
 	}
 	$activity_id = $res;
 
-	echo $activity_id;
+	echo $activity_id;*/
+
+	echo exec('git pull origin master');
 
 ?>

@@ -17,6 +17,25 @@
         // no redirect
         header( "Location: $url" );
     }
+
+    $conn = mysql_connect(HOST, USER, PASSWORD);
+    if(! $conn )
+    {
+      die('Could not connect: ' . mysql_error());
+    }
+
+    mysql_select_db(DB);
+
+    $sql_rights = "SELECT rights FROM user WHERE uname='".$_SESSION["pms_user"]."'";
+
+    $retval = mysql_query( $sql_rights, $conn );
+
+    if(! $retval )
+    {
+      die('Could not get data: ' . mysql_error());
+    }
+
+    $row = mysql_fetch_array($retval, MYSQL_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -122,7 +141,9 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
+                <?php  
+                    if((int)$row["rights"] == 2){
+                        echo '<div class="col-lg-6 col-md-6 text-center touch-anchor">
                     <a href="final_payment.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"></i>
@@ -138,6 +159,41 @@
                         </div>
                     </a>
                 </div>
+                <div class="col-md-12 text-center touch-anchor">
+                    <a href="po_payment_approval.php">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
+                            <h3>Payment Approval</h3>
+                        </div>
+                    </a>
+                </div>';
+                    }else{
+                        echo '<div class="col-md-12 text-center touch-anchor">
+                    <a href="final_payment.php">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"></i>
+                            <h3>Final Payment</h3>
+                        </div>
+                    </a>
+                </div>';
+                    }
+                ?>
+                <!-- <div class="col-lg-6 col-md-6 text-center touch-anchor">
+                    <a href="final_payment.php">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"></i>
+                            <h3>Final Payment</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-6 col-md-6 text-center touch-anchor">
+                    <a href="po_approval.php">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
+                            <h3>Approval</h3>
+                        </div>
+                    </a>
+                </div> -->
             </div>
         </div>
     </section>

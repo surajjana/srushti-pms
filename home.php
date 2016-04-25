@@ -145,7 +145,7 @@
                         <a class="page-scroll" href="#">About</a>
                     </li> -->
                      <?php  
-                        if((int)$row["rights"] == 3){
+                        if((int)$row["rights"] == 2){
                             echo '
                                     <li class="dropdown">
                                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Welcome '.$_SESSION["pms_user"].'<b class="caret"></b></a>
@@ -174,7 +174,7 @@
                         <a class="page-scroll" href="change_pwd.php">Change Password</a>
                     </li>
                     <?php  
-                        if((int)$row["rights"] == 3){
+                        if((int)$row["rights"] == 2){
                             echo '<li><a class="page-scroll" href="add_user.php">Add User</a></li>';
                             echo '<li><a class="page-scroll" href="modify_user.php">Modify User</a></li>';
                         }

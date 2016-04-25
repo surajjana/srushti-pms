@@ -60,11 +60,40 @@ if($val<10){
 $client_id = $res;
 /*echo $client_id;*/
 
+$conn = mysql_connect(HOST, USER, PASSWORD);
+if(! $conn )
+{
+  die('Could not connect: ' . mysql_error());
+}
+
+mysql_select_db(DB);
+
+$sql_rights = "SELECT rights FROM user WHERE uname='".$_SESSION["pms_user"]."'";
+
+$retval = mysql_query( $sql_rights, $conn );
+
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}
+
+$row_rights = mysql_fetch_array($retval, MYSQL_ASSOC);
+
+if((int)$row_rights["rights"] == 2){
+
+$sql_insert = "insert into client_log values('".$client_id."','".$client_grp."','".$name."','".$address.
+			  "','".$city."','".$state."','".$office_phn."','".$mobile."','".$fax."','".$email."','".$contact_person.
+			  "','".$contact_no."','".$website."','".$pan."','".$tin."','".$cst."','".$ecc."','".$service_tax_no.
+			  "','".$bank_name."','".$account_no."','".$bank_branch."','".$ifsc."','".$_SESSION["pms_user"].
+			  "','".(string)time()."','','',1)";
+}else{
+
 $sql_insert = "insert into client_log values('".$client_id."','".$client_grp."','".$name."','".$address.
 			  "','".$city."','".$state."','".$office_phn."','".$mobile."','".$fax."','".$email."','".$contact_person.
 			  "','".$contact_no."','".$website."','".$pan."','".$tin."','".$cst."','".$ecc."','".$service_tax_no.
 			  "','".$bank_name."','".$account_no."','".$bank_branch."','".$ifsc."','".$_SESSION["pms_user"].
 			  "','".(string)time()."','','',0)";
+}
 
 $retval = mysql_query( $sql_insert, $conn );
 

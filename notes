@@ -1,4 +1,4 @@
-1. Annexar A and B
+1. Annexar A and B 											
 2. Financial year in activity id 							--> Doubt
 3. Change vendor id from VL to VD 							--> Done
 4. Group insertion spelling 								--> Done
@@ -8,11 +8,13 @@
 8. Calendar for activity log sheet
 9. Mail to vendors
 10. Mail to admins for approval
-11. PO Payment for normal users								
-12. 2 types of users
-13. No approval icon for normal users
-14. PO edit n delete not available for normal users
+11. PO Payment for normal users								--> Done
+12. 2 types of users										--> Done
+13. No approval icon for normal users						-->	In Process
+14. PO edit n delete not available for normal users			--> Done
 15. Login during email approval
+16. PO Payment approval
+17. No Approval for admin
 
 
 Email From Name : Srushti PMS

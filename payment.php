@@ -20,19 +20,19 @@ if(! $retval )
   die('Could not get data: ' . mysql_error());
 }
 
-$row = mysql_fetch_array($retval, MYSQL_ASSOC);
+$row_rights = mysql_fetch_array($retval, MYSQL_ASSOC);
 
-if((int)$row["rights"] != 3){
+/*if((int)$row["rights"] != 3){
 	echo "Not Autorized!!";
-}else{
-	$sql = "SELECT * FROM po_log WHERE approval_status=1 AND po_balance<>0";
+}else{*/
+$sql = "SELECT * FROM po_log WHERE approval_status=1 AND po_balance<>0";
 
-    $retval = mysql_query( $sql, $conn );
+$retval = mysql_query( $sql, $conn );
 
-    if(! $retval )
-    {
-      die('Could not get data: ' . mysql_error());
-    }
+if(! $retval )
+{
+  die('Could not get data: ' . mysql_error());
+}
 
 ?>
 
@@ -164,7 +164,11 @@ if((int)$row["rights"] != 3){
 
                                 $row_vendor = mysql_fetch_array($retval_vendor, MYSQL_ASSOC);
 
-                                echo '<tr><td>'.$row["po_id"].'</td><td>'.$row["activity_id"].'</td><td>'.$row_activity["name"].'</td><td>'.$row["vendor_id"].'</td><td>'.$row_vendor["name"].'</td><td>'.$row["po_amount"].'</td><td>'.$row["po_balance"].'</td><td><a href="po_pay.php?cid='.$row["po_id"].'">Pay</a></td><td><a href="po_edit.php?cid='.$row["po_id"].'">Edit</a></td><td><a href="po_delete.php?cid='.$row["po_id"].'">Delete</a></td></tr>';
+                                if((int)$row_rights["rights"] == 2){
+                                    echo '<tr><td>'.$row["po_id"].'</td><td>'.$row["activity_id"].'</td><td>'.$row_activity["name"].'</td><td>'.$row["vendor_id"].'</td><td>'.$row_vendor["name"].'</td><td>'.$row["po_amount"].'</td><td>'.$row["po_balance"].'</td><td><a href="po_pay.php?cid='.$row["po_id"].'">Pay</a></td><td><a href="po_edit.php?cid='.$row["po_id"].'">Edit</a></td><td><a href="po_delete.php?cid='.$row["po_id"].'">Delete</a></td></tr>';
+                                }else{
+                                    echo '<tr><td>'.$row["po_id"].'</td><td>'.$row["activity_id"].'</td><td>'.$row_activity["name"].'</td><td>'.$row["vendor_id"].'</td><td>'.$row_vendor["name"].'</td><td>'.$row["po_amount"].'</td><td>'.$row["po_balance"].'</td><td><a href="po_pay.php?cid='.$row["po_id"].'">Pay</a></td><td>Edit</td><td>Delete</td></tr>';
+                                }
                             }
                         ?>
                     </tbody>
@@ -203,4 +207,4 @@ if((int)$row["rights"] != 3){
 
 </html>
 
-<?php } ?>
+<?php /*}*/ ?>
