@@ -124,10 +124,8 @@ if(! $retval )
                             while ($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
 
                                 $status = '';
-                                if($row["rights"] == 3){
+                                if($row["rights"] == 2){
                                     $status = 'Admin';
-                                }elseif($row["rights"] == 2){
-                                    $status = 'Intermediate';
                                 }else{
                                     $status = 'Normal';
                                 }
