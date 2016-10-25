@@ -5,7 +5,7 @@ require_once("conf/constants.php");
 $conn = mysql_connect(HOST, USER, PASSWORD);
 if(! $conn )
 {
-  die('Could not connect: ' . mysql_error());
+  die('1. Could not connect: ' . mysql_error());
 }
 $sql = "SELECT pwd FROM user WHERE uname='".$_POST['uname']."'";
 
@@ -14,7 +14,7 @@ $retval = mysql_query( $sql, $conn );
 
 if(! $retval )
 {
-  die('Could not get data: ' . mysql_error());
+  die('2. Could not get data: ' . mysql_error());
 }
 
 $row = mysql_fetch_array($retval, MYSQL_ASSOC);

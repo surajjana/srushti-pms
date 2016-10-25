@@ -22,7 +22,7 @@ if(! $retval )
 
 $row = mysql_fetch_array($retval, MYSQL_ASSOC);
 
-if((int)$row["rights"] != 3){
+if((int)$row["rights"] != 2){
 	echo "Not Autorized!!";
 }else{
 	$sql = "SELECT activity_id,name FROM activity_log WHERE approval_status=1";
