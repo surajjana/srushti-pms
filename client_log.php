@@ -146,7 +146,7 @@
                             <label>Client Group <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
                             <p class="help-block"></p> -->
-                            <select name="client_grp" id="combobox" class="form-control">
+                            <select name="client_grp" id="" class="combobox">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_client, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -391,7 +391,7 @@
 <script type="text/javascript">
   $(document).ready(function(){
     console.log('combobox testing... :-D')
-    $('#combobox').combobox();
+    $('.combobox').combobox({bsVersion: '2'});
   });
 </script>
 
