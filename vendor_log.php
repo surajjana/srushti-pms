@@ -81,12 +81,34 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        console.log('combobox testing... :-D')
+        /*$('.combobox').combobox({bsVersion: '2'});*/
+        /*$('#client_log_form').find('[name="client_grp"]').combobox()*/
+        $('[name="vendor_grp"], [name="city"], [name="state"]').selectpicker();
+        //$('[name="city"]').selectpicker();
+      });
+    </script>
+
+    <style type="text/css">
+    .form-control .btn{
+        border: solid 0.5px rgb(204, 204, 204);
+        border-radius: 5px;
+    }
+    </style>
 
 </head>
 
@@ -142,7 +164,7 @@
                             <label>Vendor Group <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
                             <p class="help-block"></p> -->
-                            <select name="vendor_grp" class="form-control">
+                            <select name="vendor_grp" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_vendor, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -170,7 +192,7 @@
                         <div class="controls">
                             <label>City <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="city" required data-validation-required-message="Please enter your phone number."> -->
-                            <select name="city" class="form-control">
+                            <select name="city" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_city, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -186,7 +208,7 @@
                         <div class="controls">
                             <label>State <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="state" required data-validation-required-message="Please enter your phone number."> -->
-                            <select name="state" class="form-control">
+                            <select name="state" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_state, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
