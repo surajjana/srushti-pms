@@ -140,13 +140,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                <form action="insert_client.php" method="post">
+                <form id="client_log_form" action="insert_client.php" method="post">
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Client Group <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
                             <p class="help-block"></p> -->
-                            <select name="client_grp" id="" class="combobox">
+                            <select name="client_grp" id="" class="form-control">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_client, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -391,7 +391,8 @@
 <script type="text/javascript">
   $(document).ready(function(){
     console.log('combobox testing... :-D')
-    $('.combobox').combobox({bsVersion: '2'});
+    /*$('.combobox').combobox({bsVersion: '2'});*/
+    $('#client_log_form').find('[name="client_grp"]').combobox()
   });
 </script>
 
