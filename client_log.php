@@ -110,8 +110,8 @@
 
     <style type="text/css">
     .form-control .btn{
-        border: solid 0.5px black;
-        border-radius: 2px;
+        border: solid 0.5px rgb(204, 204, 204);
+        border-radius: 5px;
     }
     </style>
 
