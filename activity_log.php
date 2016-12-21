@@ -84,12 +84,37 @@
   });
     </script>
 
+    <script src="js/jquery.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <script type="text/javascript">
+      $(document).ready(function(){
+        console.log('combobox testing... :-D')
+        /*$('.combobox').combobox({bsVersion: '2'});*/
+        /*$('#client_log_form').find('[name="client_grp"]').combobox()*/
+        $('[name="client_id"], [name="activity_grp"]').selectpicker();
+        //$('[name="city"]').selectpicker();
+      });
+    </script>
+
+    <style type="text/css">
+    .form-control .btn{
+        border: solid 0.5px rgb(204, 204, 204);
+        border-radius: 5px;
+    }
+    </style>
 
 </head>
 
@@ -144,7 +169,7 @@
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Client ID <span style="color:red;">*</span> :</label>
-                            <select name="client_id" class="form-control">
+                            <select name="client_id" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_client, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -180,7 +205,7 @@
                     <div class="control-group form-group">
                         <div class="controls">
                             <label>Activity <span style="color:red;">*</span> :</label>
-                            <select name="activity_grp" class="form-control">
+                            <select name="activity_grp" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_activity, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -239,7 +264,7 @@
     </section>
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
