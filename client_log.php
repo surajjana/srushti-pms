@@ -64,6 +64,8 @@
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    
+    <link rel="stylesheet" href="css/bootstrap-combobox.css" type="text/css">
 
     <link rel="icon" type="image/ico" href=""/>
 
@@ -80,6 +82,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/creative.css" type="text/css">
+
+    <script src="js/bootstrap-combobox.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -142,7 +146,7 @@
                             <label>Client Group <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
                             <p class="help-block"></p> -->
-                            <select name="client_grp" class="form-control">
+                            <select name="client_grp" id="combobox" class="form-control">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_client, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -381,7 +385,13 @@
               }
             );
         });*/
-    })
+    /*})*/
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#combobox').combobox();
+  });
 </script>
 
     <!-- Bootstrap Core JavaScript -->
