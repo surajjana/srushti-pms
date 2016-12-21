@@ -206,8 +206,8 @@
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Mobile No <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="mobile" id="" required data-validation-required-message="Please enter the mobile number.">
+                            <label>Mobile No<!--  <span style="color:red;">*</span> --> :</label>
+                            <input type="text" class="form-control" name="mobile" id="" >
                         </div>
                     </div>
                     <div class="control-group form-group">
@@ -218,21 +218,21 @@
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Email ID <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="email" id="" required data-validation-required-message="Please enter email id.">
+                            <label>Email ID <!-- <span style="color:red;">*</span> --> :</label>
+                            <input type="text" class="form-control" name="email" id="" >
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Contact Person <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="contact_person" id="" required data-validation-required-message="Please enter contact person name.">
+                            <label>Contact Person <!-- <span style="color:red;">*</span> --> :</label>
+                            <input type="text" class="form-control" name="contact_person" id="" >
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>Contact No <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="contact_no" id="" required data-validation-required-message="Please enter your contact person phone number.">
+                            <label>Contact No <!-- <span style="color:red;">*</span> --> :</label>
+                            <input type="text" class="form-control" name="contact_no" id="" >
                         </div>
                     </div>
                 </div>
@@ -246,8 +246,8 @@
                     </div>
                     <div class="control-group form-group">
                         <div class="controls">
-                            <label>PAN No <span style="color:red;">*</span> :</label>
-                            <input type="text" class="form-control" name="pan" id="" required data-validation-required-message="Please enter your PAN number.">
+                            <label>PAN No <!-- <span style="color:red;">*</span> --> :</label>
+                            <input type="text" class="form-control" name="pan" id="" >
                         </div>
                     </div>
                     <div class="control-group form-group">
