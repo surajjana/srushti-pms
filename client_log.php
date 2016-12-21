@@ -104,8 +104,8 @@
         console.log('combobox testing... :-D')
         /*$('.combobox').combobox({bsVersion: '2'});*/
         /*$('#client_log_form').find('[name="client_grp"]').combobox()*/
-        $('[name="client_grp"]').selectpicker();
-        $('[name="city"]').selectpicker();
+        $('[name="client_grp"], [name="city"], [name="state"]').selectpicker();
+        //$('[name="city"]').selectpicker();
       });
     </script>
 
@@ -170,7 +170,7 @@
                             <label>Client Group <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
                             <p class="help-block"></p> -->
-                            <select name="client_grp" id="client_grp" class="selectpicker form-control" data-live-search="true" style="border: solid 2px black;">
+                            <select name="client_grp" id="client_grp" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_client, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -198,7 +198,7 @@
                         <div class="controls">
                             <label>City <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="city" required data-validation-required-message="Please enter your phone number."> -->
-                            <select name="city" class="form-control">
+                            <select name="city" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_city, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -214,7 +214,7 @@
                         <div class="controls">
                             <label>State <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="state" required data-validation-required-message="Please enter your phone number."> -->
-                            <select name="state" class="form-control">
+                            <select name="state" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_state, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
