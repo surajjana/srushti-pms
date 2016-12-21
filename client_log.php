@@ -92,6 +92,14 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script type="text/javascript">
+      $(document).ready(function(){
+        console.log('combobox testing... :-D')
+        /*$('.combobox').combobox({bsVersion: '2'});*/
+        $('#client_log_form').find('[name="client_grp"]').combobox()
+      });
+    </script>
+
 </head>
 
 <body id="page-top">
@@ -388,13 +396,7 @@
     /*})*/
 </script>
 
-<script type="text/javascript">
-  $(document).ready(function(){
-    console.log('combobox testing... :-D')
-    /*$('.combobox').combobox({bsVersion: '2'});*/
-    $('#client_log_form').find('[name="client_grp"]').combobox()
-  });
-</script>
+
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
