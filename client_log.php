@@ -108,6 +108,13 @@
       });
     </script>
 
+    <style type="text/css">
+    .form-control .btn{
+        border: solid 0.5px black;
+        border-radius: 2px;
+    }
+    </style>
+
 </head>
 
 <body id="page-top">
