@@ -104,10 +104,7 @@
         console.log('combobox testing... :-D')
         /*$('.combobox').combobox({bsVersion: '2'});*/
         /*$('#client_log_form').find('[name="client_grp"]').combobox()*/
-        $('.selectpicker').selectpicker({
-          style: 'btn-info',
-          size: 4
-        });
+        $('.selectpicker').selectpicker();
       });
     </script>
 
