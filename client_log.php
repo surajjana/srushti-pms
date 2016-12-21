@@ -390,6 +390,7 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+    console.log('combobox testing... :-D')
     $('#combobox').combobox();
   });
 </script>
