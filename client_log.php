@@ -86,6 +86,12 @@
     <script src="js/bootstrap-combobox.js"></script>
     <script src="js/jquery.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -97,7 +103,11 @@
       $(document).ready(function(){
         console.log('combobox testing... :-D')
         /*$('.combobox').combobox({bsVersion: '2'});*/
-        $('#client_log_form').find('[name="client_grp"]').combobox()
+        /*$('#client_log_form').find('[name="client_grp"]').combobox()*/
+        $('.selectpicker').selectpicker({
+          style: 'btn-info',
+          size: 4
+        });
       });
     </script>
 
@@ -155,7 +165,7 @@
                             <label>Client Group <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
                             <p class="help-block"></p> -->
-                            <select name="client_grp" id="" class="form-control">
+                            <select name="client_grp" id="client_grp" class="selectpicker form-control" data-live-search="true" >
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_client, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
