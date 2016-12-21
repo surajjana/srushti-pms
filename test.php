@@ -86,6 +86,12 @@
     <script src="js/bootstrap-combobox.js"></script>
     <script src="js/jquery.js"></script>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -97,9 +103,18 @@
       $(document).ready(function(){
         console.log('combobox testing... :-D')
         /*$('.combobox').combobox({bsVersion: '2'});*/
-        $('#client_log_form').find('[name="client_grp"]').combobox()
+        /*$('#client_log_form').find('[name="client_grp"]').combobox()*/
+        $('[name="client_grp"], [name="city"], [name="state"]').selectpicker();
+        //$('[name="city"]').selectpicker();
       });
     </script>
+
+    <style type="text/css">
+    .form-control .btn{
+        border: solid 0.5px rgb(204, 204, 204);
+        border-radius: 5px;
+    }
+    </style>
 
 </head>
 
@@ -155,7 +170,7 @@
                             <label>Client Group <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
                             <p class="help-block"></p> -->
-                            <select name="client_grp" id="" class="form-control">
+                            <select name="client_grp" id="client_grp" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_client, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -183,7 +198,7 @@
                         <div class="controls">
                             <label>City <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="city" required data-validation-required-message="Please enter your phone number."> -->
-                            <select name="city" class="form-control">
+                            <select name="city" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_city, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -199,7 +214,7 @@
                         <div class="controls">
                             <label>State <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="state" required data-validation-required-message="Please enter your phone number."> -->
-                            <select name="state" class="form-control">
+                            <select name="state" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_state, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
@@ -337,6 +352,66 @@
             </div>
         </div>
     </section>
+
+    <!-- jQuery -->
+    
+
+    <script type="text/javascript">
+        /*var res = '{"data":[{"name":"","address":"","city":"","state":""}]}';
+
+    $(document).ready(function(){
+        $("#name").bind('input propertychange', function(){
+            var name = $('#name').val();
+            var obj = jQuery.parseJSON(res);
+            obj.data[0].name = name;
+            res = JSON.stringify(obj);
+            console.log(res);
+        });
+        $("#address").bind('input propertychange', function(){
+            var address = $('#address').val();
+            var obj = jQuery.parseJSON(res);
+            obj.data[0].address = address;
+            res = JSON.stringify(obj);
+            console.log(res);
+        });
+        $("#city").bind('input propertychange', function(){
+            var city = $('#city').val();
+            var obj = jQuery.parseJSON(res);
+            obj.data[0].city = city;
+            res = JSON.stringify(obj);
+            console.log(res);
+        });
+        $("#state").bind('input propertychange', function(){
+            var state = $('#state').val();
+            var obj = jQuery.parseJSON(res);
+            obj.data[0].state = state;
+            res = JSON.stringify(obj);
+            console.log(res);
+        });
+        $("#click_me").click(function(event){
+            var url = 'http://localhost:8080/test_api';
+            var data = res;
+            var data1 = encodeURIComponent(data);
+            var form = $('<form action="' + url + '" method="post">' +
+              '<input type="text" name="data" value='+ data1 +' />' +
+              '</form>');
+            $('body').append(form);
+            form.submit();
+        });*/
+        /*$("#click_me").click(function(event){             
+            $.post( 
+              "conf/change_data.php",
+              { data: res },
+              function(data) {
+                 $('#stage').html(data);
+                 console.log(data);
+                 window.location.replace("http://localhost/surajjana.github.io/pms/conf/data.php?data="+data);
+              }
+            );
+        });*/
+    /*})*/
+</script>
+
 
 
     <!-- Bootstrap Core JavaScript -->
