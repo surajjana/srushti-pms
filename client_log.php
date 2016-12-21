@@ -84,6 +84,7 @@
     <link rel="stylesheet" href="css/creative.css" type="text/css">
 
     <script src="js/bootstrap-combobox.js"></script>
+    <script src="js/jquery.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -338,7 +339,7 @@
     </section>
 
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    
 
     <script type="text/javascript">
         /*var res = '{"data":[{"name":"","address":"","city":"","state":""}]}';
