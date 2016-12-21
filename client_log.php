@@ -162,7 +162,7 @@
                             <label>Client Group <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
                             <p class="help-block"></p> -->
-                            <select name="client_grp" id="client_grp" class="selectpicker form-control" data-live-search="true" >
+                            <select name="client_grp" id="client_grp" class="selectpicker form-control" data-live-search="true" style="border: solid 2px black;">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval_client, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
