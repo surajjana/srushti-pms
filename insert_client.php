@@ -4,7 +4,9 @@ require_once("conf/constants.php");
 
 session_start();
 
-$conn = mysql_connect(HOST, USER, PASSWORD);
+print_r($_POST);
+
+/*$conn = mysql_connect(HOST, USER, PASSWORD);
 if(! $conn )
 {
   die('Could not connect: ' . mysql_error());
@@ -58,7 +60,7 @@ if($val<10){
 	$res .= (string)$val;
 }
 $client_id = $res;
-/*echo $client_id;*/
+
 
 $conn = mysql_connect(HOST, USER, PASSWORD);
 if(! $conn )
@@ -104,9 +106,9 @@ if(! $retval )
   die('Could not get data: ' . mysql_error());
 }else{
 
-/*echo "Client Added!!";*/
+
 
 
 echo '<center><h2>Client Log Sheet Inserted!!</h2><br /><a href="client.php">Click Here</a></center>';
-}
+}*/
 ?>
