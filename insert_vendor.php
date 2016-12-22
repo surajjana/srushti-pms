@@ -4,7 +4,9 @@ require_once("conf/constants.php");
 
 session_start();
 
-$conn = mysql_connect(HOST, USER, PASSWORD);
+print_r($_POST);
+
+/*$conn = mysql_connect(HOST, USER, PASSWORD);
 if(! $conn )
 {
   die('Could not connect: ' . mysql_error());
@@ -58,7 +60,7 @@ if($val<10){
 	$res .= (string)$val;
 }
 $vendor_id = $res;
-/*echo $client_id;*/
+
 
 $sql_insert = "insert into vendor_log values('".$vendor_id."','".$vendor_grp."','".$name."','".$address.
 			  "','".$city."','".$state."','".$office_phn."','".$mobile."','".$fax."','".$email."','".$contact_person.
@@ -75,9 +77,9 @@ if(! $retval )
   die('Could not get data: ' . mysql_error());
 }else{
 
-/*echo "Client Added!!";*/
+
 
 
 echo '<center><h2>Vendor Log Sheet Inserted!!</h2><br /><a href="vendor.php">Click Here</a></center>';
-}
+}*/
 ?>
