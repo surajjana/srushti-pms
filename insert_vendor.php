@@ -4,9 +4,9 @@ require_once("conf/constants.php");
 
 session_start();
 
-print_r($_POST);
+//print_r($_POST);
 
-/*$conn = mysql_connect(HOST, USER, PASSWORD);
+$conn = mysql_connect(HOST, USER, PASSWORD);
 if(! $conn )
 {
   die('Could not connect: ' . mysql_error());
@@ -81,5 +81,5 @@ if(! $retval )
 
 
 echo '<center><h2>Vendor Log Sheet Inserted!!</h2><br /><a href="vendor.php">Click Here</a></center>';
-}*/
+}
 ?>
