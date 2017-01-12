@@ -137,25 +137,17 @@
                     <a href="payment.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-money wow bounceIn text-primary"></i>
-                            <h3>Payment</h3>
+                            <h3>PO Payment</h3>
                         </div>
                     </a>
                 </div>
                 <?php  
                     if((int)$row["rights"] == 2){
                         echo '<div class="col-lg-6 col-md-6 text-center touch-anchor">
-                    <a href="final_payment.php">
-                        <div class="service-box">
-                            <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"></i>
-                            <h3>Final Payment</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
                     <a href="po_approval.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Approval</h3>
+                            <h3>PO Approval</h3>
                         </div>
                     </a>
                 </div>
@@ -163,7 +155,15 @@
                     <a href="po_payment_approval.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
-                            <h3>Payment Approval</h3>
+                            <h3>PO Payment Approval</h3>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-6 col-md-6 text-center touch-anchor">
+                    <a href="final_payment.php">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"></i>
+                            <h3>Final Payment</h3>
                         </div>
                     </a>
                 </div>';
