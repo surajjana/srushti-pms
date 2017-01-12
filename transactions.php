@@ -151,7 +151,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-md-12 text-center touch-anchor">
+                <div class="col-lg-6 col-md-6 text-center touch-anchor">
                     <a href="po_payment_approval.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-check wow bounceIn text-primary"></i>
@@ -159,7 +159,7 @@
                         </div>
                     </a>
                 </div>
-                <div class="col-lg-6 col-md-6 text-center touch-anchor">
+                <div class="col-md-12 text-center touch-anchor">
                     <a href="final_payment.php">
                         <div class="service-box">
                             <i class="fa fa-4x fa-paper-plane wow bounceIn text-primary"></i>
