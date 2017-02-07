@@ -35,7 +35,7 @@ $activity_code = $row["activity_id"];
 $arr = explode("/",$activity_code);
 $val = (int)$arr[2];
 $val += 1;
-$res = (string)date("y").'/SA/';
+$res = (string)date("y").'/CBS/';
 if($val<10){
 	$res .= '0000'.(string)$val;
 }elseif($val>9 && $val<100){
