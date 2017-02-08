@@ -77,6 +77,23 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script type="text/javascript">
+      $(document).ready(function(){
+        console.log('combobox testing... :-D')
+        /*$('.combobox').combobox({bsVersion: '2'});*/
+        /*$('#client_log_form').find('[name="client_grp"]').combobox()*/
+        $('[name="activity_id"]').selectpicker();
+        //$('[name="city"]').selectpicker();
+      });
+    </script>
+
+    <style type="text/css">
+    .form-control .btn{
+        border: solid 0.5px rgb(204, 204, 204);
+        border-radius: 5px;
+    }
+    </style>
+
 </head>
 
 <body id="page-top">
@@ -133,7 +150,7 @@
                             <label>Activity Code <span style="color:red;">*</span> :</label>
                             <!-- <input type="text" class="form-control" id="" required data-validation-required-message="Please enter your name.">
                             <p class="help-block"></p> -->
-                            <select name="activity_id" class="form-control">
+                            <select name="activity_id" id="" class="selectpicker form-control" data-live-search="true">
                                 <?php  
                                     while ($row = mysql_fetch_array($retval, MYSQL_ASSOC)) {
                                         if(strlen($row["name"]) > 0){
