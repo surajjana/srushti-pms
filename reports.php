@@ -196,6 +196,8 @@
     <!-- Custom Theme JavaScript -->
     <script src="js/creative.js"></script>
 
+    <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
 </body>
 
 </html>
